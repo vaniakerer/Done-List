@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textViewStyle">@style/MyTextViewStyle</item>
+        <item name="editTextStyle">@style/MyEditTextStyle</item>
     </style>
 
     <style name="MyTextViewStyle" parent="TextAppearance.AppCompat">
@@ -16,6 +17,10 @@
     <style name="CardViewStyle" parent="CardView">
         <item name="android:padding">@dimen/card_view_padding</item>
         <item name="android:layout_margin">@dimen/card_view_margin</item>
+    </style>
+
+    <style name="MyEditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_margin">8dp</item>
     </style>
 
 

@@ -1,11 +1,14 @@
-package donelist.lerndroid.com.donelist;
+package donelist.lerndroid.com.donelist.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +24,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import donelist.lerndroid.com.donelist.CauseLab;
+import donelist.lerndroid.com.donelist.NewCauseActivity;
+import donelist.lerndroid.com.donelist.R;
 import donelist.lerndroid.com.donelist.model.Cause;
 
 /**
@@ -45,15 +52,14 @@ public class CausesFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_causes, container, false);
         ButterKnife.bind(this, v);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        mCauseAdapter = new CauseAdapter(CauseLab.get(getActivity()).getCauses());
-        mRecyclerView.setAdapter(mCauseAdapter);
+        updateUi();
         return v;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -66,10 +72,12 @@ public class CausesFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.caused_menu_add_cause:
-                return true;//TODO Action add new Cause;
+                startActivity(new Intent(getActivity(), NewCauseActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+
     }
 
     public class CausesHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -101,6 +109,25 @@ public class CausesFragment extends Fragment {
             Toast.makeText(getActivity(), "Card Clicked", Toast.LENGTH_SHORT)
                     .show();
         }
+
+        @OnClick(R.id.card_item_cause_share_tv)
+        public void share(){
+            Intent i = ShareCompat.IntentBuilder.from(getActivity())
+                    .setType("text/plain")
+                    .setText(getCauseForShare())
+                    .setSubject(getString(R.string.send_cause))
+                    .setChooserTitle(getString(R.string.send_report))
+                    .createChooserIntent();
+
+            startActivity(i);
+        }
+
+        private String getCauseForShare(){
+            String dateFormat = "EEE, MMM dd";
+            String dateString = DateFormat.format(dateFormat, mCause.getDate()).toString();
+
+            return mCause.getTitle() + ":" + mCause.getDescription() + "\n" + dateString;
+        }
     }
 
     public class CauseAdapter extends RecyclerView.Adapter<CausesHolder>{
@@ -127,5 +154,30 @@ public class CausesFragment extends Fragment {
         public int getItemCount() {
             return mCauses.size();
         }
+
+        private void setCauses(List<Cause> causes){
+            mCauses = causes;
+        }
+
     }
+
+    private void updateUi(){
+        List<Cause> causes = CauseLab.get(getActivity()).getCauses();
+
+        if (mCauseAdapter == null){
+            mCauseAdapter = new CauseAdapter(causes);
+            mRecyclerView.setAdapter(mCauseAdapter);
+        }else {
+            mCauseAdapter.setCauses(causes);
+            mCauseAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUi();
+    }
+
+
 }

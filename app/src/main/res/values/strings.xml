@@ -3,4 +3,9 @@
     <string name="add_cause">Add cause</string>
     <string name="share">SHARE</string>
     <string name="preview">PREVIEW</string>
+    <string name="description">Description</string>
+    <string name="title">Title</string>
+    <string name="must_be_filled">Field title must be filled</string>
+    <string name="send_cause">Done List sharing</string>
+    <string name="send_report">Send cause via!</string>
 </resources>

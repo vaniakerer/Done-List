@@ -12,6 +12,7 @@ public class Cause {
     private String mTitle;
     private String mDescription;
     private Date date;
+    private String photoPath;
     private List<CausesDone> mDones;
 
     public Cause(int mId, String mTitle, String mDescription, Date date, List<CausesDone> mDones) {
@@ -22,6 +23,10 @@ public class Cause {
         this.mDones = mDones;
     }
 
+
+    public Cause() {
+    }
+
     public int getmId() {
         return mId;
     }
@@ -30,7 +35,7 @@ public class Cause {
         return mTitle;
     }
 
-    public void setmTitle(String mTitle) {
+    public void setTitle(String mTitle) {
         this.mTitle = mTitle;
     }
 
@@ -38,7 +43,7 @@ public class Cause {
         return mDescription;
     }
 
-    public void setmDescription(String mDescription) {
+    public void setDescription(String mDescription) {
         this.mDescription = mDescription;
     }
 
@@ -56,5 +61,17 @@ public class Cause {
 
     public void setmDones(List<CausesDone> mDones) {
         this.mDones = mDones;
+    }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
+    public void setmId(int mId) {
+        this.mId = mId;
     }
 }
