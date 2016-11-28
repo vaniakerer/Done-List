@@ -28,6 +28,7 @@ import butterknife.OnClick;
 import donelist.lerndroid.com.donelist.CauseLab;
 import donelist.lerndroid.com.donelist.NewCauseActivity;
 import donelist.lerndroid.com.donelist.R;
+import donelist.lerndroid.com.donelist.dialog.DonesReviewDialogFragment;
 import donelist.lerndroid.com.donelist.model.Cause;
 
 /**
@@ -36,6 +37,8 @@ import donelist.lerndroid.com.donelist.model.Cause;
 
 public class CausesFragment extends Fragment {
     private static final String TAG = "CausesFragment";
+    private static final  String ARG_CAUSE_ID = "cause_id";
+    private static final String DIALOG_REVIEW = "DialogReview";
 
     private CauseAdapter mCauseAdapter;
 
@@ -80,7 +83,7 @@ public class CausesFragment extends Fragment {
 
     }
 
-    public class CausesHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class CausesHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.card_item_cause_cardview) CardView mCauseCard;
         @BindView(R.id.card_item_cause_image_imv) ImageView mCauseImage;
         @BindView(R.id.card_item_cause_title_tv) TextView mCauseTitle;
@@ -104,10 +107,17 @@ public class CausesFragment extends Fragment {
             mCauseDescription.setText(cause.getDescription());
             mCauseDate.setText(dateFormat.format(cause.getDate()));
         }
-        @Override
-        public void onClick(View v) {
+
+        @OnClick(R.id.card_item_cause_cardview)
+        public void onCardClick(View v) {
             Toast.makeText(getActivity(), "Card Clicked", Toast.LENGTH_SHORT)
                     .show();
+        }
+
+        @OnClick(R.id.card_item_cause_preview_tv)
+        public void onPreviewClick(){
+            DonesReviewDialogFragment reviewDialog = DonesReviewDialogFragment.newInstance(mCause.getId());
+            reviewDialog.show(getFragmentManager(), DIALOG_REVIEW);
         }
 
         @OnClick(R.id.card_item_cause_share_tv)

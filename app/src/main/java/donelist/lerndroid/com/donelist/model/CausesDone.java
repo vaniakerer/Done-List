@@ -1,23 +1,27 @@
 package donelist.lerndroid.com.donelist.model;
 
-import java.util.UUID;
+import android.text.format.DateFormat;
+
+import java.util.Date;
 
 /**
  * Created by ivan on 28.11.16.
  */
 
 public class CausesDone {
-    private UUID mId;
+    private int mId;
     private String mTitle;
     private String mDescription;
+    private Date mDoneDate;
 
-    public CausesDone(UUID mId, String mTitle, String mDescription) {
+    public CausesDone(int mId, String mTitle, String mDescription, Date mDoneDate) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mDescription = mDescription;
+        this.mDoneDate = mDoneDate;
     }
 
-    public String getmTitle() {
+    public String getTitle() {
         return mTitle;
     }
 
@@ -33,7 +37,16 @@ public class CausesDone {
         this.mDescription = mDescription;
     }
 
-    public UUID getmId() {
+    public int getmId() {
         return mId;
+    }
+
+    public String getDoneDate() {
+        String dateFormat = "EEE, MMM dd";
+        return DateFormat.format(dateFormat, this.mDoneDate).toString();
+    }
+
+    public void setmDoneDate(Date mDoneDate) {
+        this.mDoneDate = mDoneDate;
     }
 }

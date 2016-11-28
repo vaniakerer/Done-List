@@ -27,7 +27,7 @@ public class Cause {
     public Cause() {
     }
 
-    public int getmId() {
+    public int getId() {
         return mId;
     }
 
@@ -55,7 +55,7 @@ public class Cause {
         this.date = date;
     }
 
-    public List<CausesDone> getmDones() {
+    public List<CausesDone> getDones() {
         return mDones;
     }
 
