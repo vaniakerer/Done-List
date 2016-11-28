@@ -6,6 +6,18 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/MyTextViewStyle</item>
     </style>
+
+    <style name="MyTextViewStyle" parent="TextAppearance.AppCompat">
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="CardViewStyle" parent="CardView">
+        <item name="android:padding">@dimen/card_view_padding</item>
+        <item name="android:layout_margin">@dimen/card_view_margin</item>
+    </style>
+
+
 
 </resources>

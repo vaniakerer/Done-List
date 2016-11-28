@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_item_cause_cardview"
+        style="@style/CardViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/card_item_cause_title_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/card_item_cause_image_imv"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/circular_image_view_background"
+                   />
+
+                <TextView
+                    android:id="@+id/card_item_cause_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/card_item_cause_image_imv"
+                    android:text="Caused title"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/card_view_title_text_size" />
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/card_item_cause_description_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thanks, this has been done but interestingly the..."
+                android:textColor="@color/colorSecondaryText"
+                android:textSize="@dimen/secondary_text_size"/>
+
+            <View
+                android:id="@+id/card_item_divider_line"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/card_item_cause_image_imv"
+                android:layout_marginTop="4dp"
+                 />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/card_item_cause_share_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:text="@string/share"
+                    android:textColor="@color/colorAccent"
+                    style="@style/TextAppearance.AppCompat.Button"/>
+                />
+
+                <TextView
+                    android:id="@+id/card_item_cause_preview_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/card_item_cause_share_tv"
+                    android:background="@color/white"
+                    android:text="@string/preview"
+                    android:textColor="@color/colorSecondaryText"
+                    style="@style/TextAppearance.AppCompat.Button"/>
+
+                <TextView
+                    android:id="@+id/card_item_cause_date_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/colorSecondaryText"
+                    android:text="25 June 2016" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>
