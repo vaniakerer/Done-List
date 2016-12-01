@@ -1,13 +1,19 @@
 package donelist.lerndroid.com.donelist;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
-public class CauseActivity extends AppCompatActivity {
+import donelist.lerndroid.com.donelist.fragment.CauseFragment;
+
+/**
+ * Created by ivan on 01.12.16.
+ */
+
+public class CauseActivity extends SingleFragmentActivity {
+
+    private static final String EXTRA_CAUSE_ID = "donelist.lerndriod.com.donelist.cause_id";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cause);
+    public Fragment createFragment() {
+        return CauseFragment.newInstance(getIntent().getIntExtra(EXTRA_CAUSE_ID, 0));
     }
 }

@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -25,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import donelist.lerndroid.com.donelist.CauseActivity;
 import donelist.lerndroid.com.donelist.CauseLab;
 import donelist.lerndroid.com.donelist.NewCauseActivity;
 import donelist.lerndroid.com.donelist.R;
@@ -39,6 +39,7 @@ public class CausesFragment extends Fragment {
     private static final String TAG = "CausesFragment";
     private static final  String ARG_CAUSE_ID = "cause_id";
     private static final String DIALOG_REVIEW = "DialogReview";
+    private static final String EXTRA_CAUSE_ID = "donelist.lerndriod.com.donelist.cause_id";
 
     private CauseAdapter mCauseAdapter;
 
@@ -110,8 +111,9 @@ public class CausesFragment extends Fragment {
 
         @OnClick(R.id.card_item_cause_cardview)
         public void onCardClick(View v) {
-            Toast.makeText(getActivity(), "Card Clicked", Toast.LENGTH_SHORT)
-                    .show();
+            Intent intent = new Intent(getActivity(), CauseActivity.class);
+            intent.putExtra(EXTRA_CAUSE_ID, mCause.getId());
+            startActivity(intent);
         }
 
         @OnClick(R.id.card_item_cause_preview_tv)

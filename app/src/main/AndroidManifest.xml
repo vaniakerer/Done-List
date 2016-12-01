@@ -21,6 +21,8 @@
 
         <activity android:name=".NewCauseActivity"
             android:parentActivityName=".CausesActivity"/>
+        <activity android:name=".CauseActivity"
+            android:parentActivityName=".CausesActivity"/>
 
     </application>
 

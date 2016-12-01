@@ -13,12 +13,14 @@ public class CausesDone {
     private String mTitle;
     private String mDescription;
     private Date mDoneDate;
+    private int status;
 
     public CausesDone(int mId, String mTitle, String mDescription, Date mDoneDate) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mDescription = mDescription;
         this.mDoneDate = mDoneDate;
+        this.status = 0;
     }
 
     public String getTitle() {
@@ -48,5 +50,13 @@ public class CausesDone {
 
     public void setmDoneDate(Date mDoneDate) {
         this.mDoneDate = mDoneDate;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
