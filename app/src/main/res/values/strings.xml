@@ -8,4 +8,6 @@
     <string name="must_be_filled">Field title must be filled</string>
     <string name="send_cause">Done List sharing</string>
     <string name="send_report">Send cause via!</string>
+    <string name="choose_date">Choose date</string>
+    <string name="new_done">New Done</string>
 </resources>

@@ -23,11 +23,14 @@ public class CausesDone {
         this.status = 0;
     }
 
+    public CausesDone() {
+    }
+
     public String getTitle() {
         return mTitle;
     }
 
-    public void setmTitle(String mTitle) {
+    public void setTitle(String mTitle) {
         this.mTitle = mTitle;
     }
 
@@ -48,7 +51,7 @@ public class CausesDone {
         return DateFormat.format(dateFormat, this.mDoneDate).toString();
     }
 
-    public void setmDoneDate(Date mDoneDate) {
+    public void setDoneDate(Date mDoneDate) {
         this.mDoneDate = mDoneDate;
     }
 

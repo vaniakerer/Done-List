@@ -57,6 +57,7 @@ public class CausesFragment extends Fragment {
         ButterKnife.bind(this, v);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUi();
+
         return v;
     }
 

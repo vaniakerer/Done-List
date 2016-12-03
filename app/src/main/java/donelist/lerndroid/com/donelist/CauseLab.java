@@ -3,7 +3,6 @@ package donelist.lerndroid.com.donelist;
 import android.content.Context;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import donelist.lerndroid.com.donelist.model.Cause;
@@ -39,26 +38,7 @@ public class CauseLab {
 
     public void addCause(Cause cause) {
         List<CausesDone> dones = new ArrayList<>();
-
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        dones.add(new CausesDone(1, "Title", "Some Lond Descasfasfasfasfasfasfafasasfasassfription", Calendar.getInstance().getTime()));
-        cause.setmDones(dones);
-
+        cause.setDones(dones);
         mCauses.add(cause);
     }
 

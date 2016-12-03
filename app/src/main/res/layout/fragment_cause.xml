@@ -1,68 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="70dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/cause_fragment_cause_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp" />
+                <LinearLayout
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/cause_fragment_make_photo_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_cause_photo"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/cause_fragment_cause_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp" />
 
-            <TextView
-                android:id="@+id/cause_fragment_cause_title_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="20sp"
-                android:text="Title"
-                />
+                    <ImageButton
+                        android:id="@+id/cause_fragment_make_photo_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_cause_photo" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/cause_fragment_cause_description_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorSecondaryText"
-                android:text="afasfagasfasfkasjfajsfas;'ksas;kjaf;asfj;asjf;asjf;asjf;asfjas;lfjas;fjas;jfas;fjas;jfas;jfa;sjf;asjf;asjf;asj;fasjf;jas;fjlas;fjas;jfas;fjas;fjas;fjas;fja;sjfas;jfas;fja;sfjas;jfas;jfas;fjl"/>
-
-                <TextView
-                    android:id="@+id/cause_fragment_cause_date_tv"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorSecondaryText"
-                    android:layout_gravity="right"/>
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/cause_fragment_cause_title_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Title"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/cause_fragment_cause_description_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="afasfagasfasfkasjfajsfas;'ksas;kjaf;asfj;asjf;asjf;asjf;asfjas;lfjas;fjas;jfas;fjas;jfas;jfa;sjf;asjf;asjf;asj;fasjf;jas;fjlas;fjas;jfas;fjas;fjas;fjas;fja;sjfas;jfas;fja;sfjas;jfas;jfas;fjl"
+                        android:textColor="@color/colorSecondaryText" />
+
+                    <TextView
+                        android:id="@+id/cause_fragment_cause_date_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:textColor="@color/colorSecondaryText" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/cause_fragment_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cause_fragment_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/cause_fragment_no_dones_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:text="No dones yet"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/cause_fragment_new_done_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_toolbar_add_cause" />
+
+</android.support.design.widget.CoordinatorLayout>

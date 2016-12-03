@@ -59,7 +59,7 @@ public class Cause {
         return mDones;
     }
 
-    public void setmDones(List<CausesDone> mDones) {
+    public void setDones(List<CausesDone> mDones) {
         this.mDones = mDones;
     }
 
