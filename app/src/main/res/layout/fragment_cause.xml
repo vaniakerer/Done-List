@@ -25,7 +25,8 @@
                     <ImageView
                         android:id="@+id/cause_fragment_cause_image"
                         android:layout_width="match_parent"
-                        android:layout_height="70dp" />
+                        android:layout_height="70dp"
+                        android:background="@color/colorPrimaryDark"/>
 
                     <ImageButton
                         android:id="@+id/cause_fragment_make_photo_button"

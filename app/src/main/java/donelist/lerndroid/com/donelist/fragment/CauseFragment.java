@@ -17,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Date;
 import java.util.List;
 
@@ -102,6 +104,11 @@ public class CauseFragment extends Fragment {
         mTitle.setText(mCause.getTitle());
         mDescription.setText(mCause.getDescription());
         mDate.setText(DateFormat.format(dateFormat, mCause.getDate()).toString());
+
+            Picasso.with(getActivity())
+                    .load("https://www.simplifiedcoding.net/wp-content/uploads/2015/10/advertise.png")
+                    .error(R.drawable.circular_image_view_background)
+                    .into(mImage);
 
         if (mCause.getDones().isEmpty()) {
             mRecyclerView.setVisibility(View.GONE);

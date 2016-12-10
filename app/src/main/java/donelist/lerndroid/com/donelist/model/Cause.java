@@ -23,7 +23,6 @@ public class Cause {
         this.mDones = mDones;
     }
 
-
     public Cause() {
     }
 

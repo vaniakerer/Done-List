@@ -38,9 +38,12 @@ public class NewCauseFragment extends Fragment {
 
     private static final int REQUEST_MAKE_PHOTO = 0;
 
+    private static final String PHOTO_URI = "photoUri";
+
     private static final String EXTRA_CAUSE_ID = "donelist.lerndriod.com.donelist.cause_id";
 
     private File mPhotoFile;
+    private Uri mPhotoUri;
 
     @BindView(R.id.new_cause_title_ed)
     EditText mNewCauseTitleEd;
@@ -61,6 +64,19 @@ public class NewCauseFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_new_cause, container, false);
         ButterKnife.bind(this, v);
 
+        if (savedInstanceState != null) {
+            mPhotoUri = savedInstanceState.getParcelable(PHOTO_URI);
+            Bitmap photo = null;
+
+            if (mPhotoUri != null) {
+                try {
+                    photo = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), mPhotoUri);
+                    mNewCausePhotoImg.setImageBitmap(photo);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return v;
     }
 
@@ -91,6 +107,9 @@ public class NewCauseFragment extends Fragment {
         cause.setPhotoPath(null);//TODO make photo
         cause.setDate(c.getTime());
 
+        if (mPhotoUri != null){
+            cause.setPhotoPath(mPhotoUri.getPath());
+        }
         return cause;
     }
 
@@ -100,23 +119,23 @@ public class NewCauseFragment extends Fragment {
 
         boolean canTakePhoto = captureImage.resolveActivity(getActivity().getPackageManager()) != null;
 
-        if (canTakePhoto){
+        if (canTakePhoto) {
             startActivityForResult(captureImage, REQUEST_MAKE_PHOTO);
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK){
+        if (resultCode != Activity.RESULT_OK) {
             return;
         }
 
-        switch (requestCode){
+        switch (requestCode) {
             case REQUEST_MAKE_PHOTO:
-
-                Uri photoUri = data.getData();
+                mPhotoUri = data.getData();
                 try {
-                    Bitmap photo = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
+                    Bitmap photo = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), mPhotoUri);
+
                     mNewCausePhotoImg.setImageBitmap(photo);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -125,5 +144,9 @@ public class NewCauseFragment extends Fragment {
         }
     }
 
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(PHOTO_URI, mPhotoUri);
+        super.onSaveInstanceState(outState);
+    }
 }
