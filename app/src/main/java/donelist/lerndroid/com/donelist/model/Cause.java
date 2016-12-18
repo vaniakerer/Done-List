@@ -1,6 +1,5 @@
 package donelist.lerndroid.com.donelist.model;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,11 +10,11 @@ public class Cause {
     private int mId;
     private String mTitle;
     private String mDescription;
-    private Date date;
+    private String date;
     private String photoPath;
     private List<CausesDone> mDones;
 
-    public Cause(int mId, String mTitle, String mDescription, Date date, List<CausesDone> mDones) {
+    public Cause(int mId, String mTitle, String mDescription, String date, List<CausesDone> mDones) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mDescription = mDescription;
@@ -46,11 +45,11 @@ public class Cause {
         this.mDescription = mDescription;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -72,5 +71,13 @@ public class Cause {
 
     public void setmId(int mId) {
         this.mId = mId;
+    }
+
+    public List<CausesDone> getmDones() {
+        return mDones;
+    }
+
+    public void setmDones(List<CausesDone> mDones) {
+        this.mDones = mDones;
     }
 }

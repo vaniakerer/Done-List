@@ -105,7 +105,7 @@ public class NewCauseFragment extends Fragment {
         cause.setTitle(mNewCauseTitleEd.getText().toString());
         cause.setDescription(mNewCauseDescripptionEd.getText().toString());
         cause.setPhotoPath(null);//TODO make photo
-        cause.setDate(c.getTime());
+        cause.setDate(c.getTime().toString());
 
         if (mPhotoUri != null){
             cause.setPhotoPath(mPhotoUri.getPath());

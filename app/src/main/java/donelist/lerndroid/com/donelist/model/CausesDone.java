@@ -1,9 +1,5 @@
 package donelist.lerndroid.com.donelist.model;
 
-import android.text.format.DateFormat;
-
-import java.util.Date;
-
 /**
  * Created by ivan on 28.11.16.
  */
@@ -12,10 +8,10 @@ public class CausesDone {
     private int mId;
     private String mTitle;
     private String mDescription;
-    private Date mDoneDate;
+    private String mDoneDate;
     private int status;
 
-    public CausesDone(int mId, String mTitle, String mDescription, Date mDoneDate) {
+    public CausesDone(int mId, String mTitle, String mDescription, String mDoneDate) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mDescription = mDescription;
@@ -47,11 +43,10 @@ public class CausesDone {
     }
 
     public String getDoneDate() {
-        String dateFormat = "EEE, MMM dd";
-        return DateFormat.format(dateFormat, this.mDoneDate).toString();
+        return mDoneDate;
     }
 
-    public void setDoneDate(Date mDoneDate) {
+    public void setDoneDate(String mDoneDate) {
         this.mDoneDate = mDoneDate;
     }
 
@@ -61,5 +56,30 @@ public class CausesDone {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public void setmId(int mId) {
+        this.mId = mId;
+    }
+
+    public String getmTitle() {
+        return mTitle;
+    }
+
+    public void setmTitle(String mTitle) {
+        this.mTitle = mTitle;
+    }
+
+    public String getmDoneDate() {
+        return mDoneDate;
+    }
+
+    public void setmDoneDate(String mDoneDate) {
+        this.mDoneDate = mDoneDate;
+    }
+
+    @Override
+    public String toString() {
+        return this.getTitle() + " " + this.getmDescription() + " " + this.getDoneDate() + " " +  this.getmId();
     }
 }

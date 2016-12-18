@@ -26,6 +26,8 @@ public class CauseLab {
         return sCauseLab;
     }
 
+
+
     private CauseLab(Context context) {
         mContext = context;
         mCauses = new ArrayList<>();
@@ -49,6 +51,10 @@ public class CauseLab {
             }
         }
         return null;
+    }
+
+    public void setCauses(List<Cause> causes){
+        mCauses = causes;
     }
 
     public void removeCause(int id) {

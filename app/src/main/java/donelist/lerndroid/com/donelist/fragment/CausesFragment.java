@@ -8,7 +8,7 @@ import android.support.v4.app.ShareCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +18,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +37,7 @@ import donelist.lerndroid.com.donelist.NewCauseActivity;
 import donelist.lerndroid.com.donelist.R;
 import donelist.lerndroid.com.donelist.dialog.DonesReviewDialogFragment;
 import donelist.lerndroid.com.donelist.model.Cause;
+import donelist.lerndroid.com.donelist.model.CausesDone;
 
 /**
  * Created by ivan on 28.11.16.
@@ -42,6 +50,8 @@ public class CausesFragment extends Fragment {
     private static final String EXTRA_CAUSE_ID = "donelist.lerndriod.com.donelist.cause_id";
 
     private CauseAdapter mCauseAdapter;
+
+    private DatabaseReference mDatabase;
 
     @BindView(R.id.cause_fragment_recycler_view) RecyclerView mRecyclerView;
 
@@ -57,6 +67,8 @@ public class CausesFragment extends Fragment {
         ButterKnife.bind(this, v);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUi();
+        init();
+
 
         return v;
     }
@@ -85,6 +97,46 @@ public class CausesFragment extends Fragment {
 
     }
 
+    //ініціалізація бд
+    private void init(){
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("causes").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Cause> causes = new ArrayList<Cause>();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Cause cause = dataSnapshot1.getValue(Cause.class);
+                    causes.add(cause);
+                    Log.d("", String.valueOf(causes.size()));
+                }
+
+                CauseLab.get(getActivity()).setCauses(causes);
+                updateUi();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        Cause cause = new Cause();
+        cause.setmId(1);
+        cause.setPhotoPath("photoPath");
+        cause.setDate("daad");
+        cause.setTitle("title");
+        cause.setDescription("desc");
+        List<CausesDone> dones = new ArrayList<>();
+        dones.add(new CausesDone(1, "asf", "asf", "asd"));
+        cause.setDones(dones);
+
+       /* mDatabase.child("causes")
+                .push()
+                .setValue(cause);*/
+    }
+
     public class CausesHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.card_item_cause_cardview) CardView mCauseCard;
         @BindView(R.id.card_item_cause_image_imv) ImageView mCauseImage;
@@ -107,7 +159,7 @@ public class CausesFragment extends Fragment {
             mCause = cause;
             mCauseTitle.setText(cause.getTitle());
             mCauseDescription.setText(cause.getDescription());
-            mCauseDate.setText(dateFormat.format(cause.getDate()));
+            mCauseDate.setText(cause.getDate());
         }
 
         @OnClick(R.id.card_item_cause_cardview)
@@ -136,8 +188,7 @@ public class CausesFragment extends Fragment {
         }
 
         private String getCauseForShare(){
-            String dateFormat = "EEE, MMM dd";
-            String dateString = DateFormat.format(dateFormat, mCause.getDate()).toString();
+            String dateString =  mCause.getDate();
 
             return mCause.getTitle() + ":" + mCause.getDescription() + "\n" + dateString;
         }

@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -99,11 +98,9 @@ public class CauseFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new CauseDoneAdapter(mCause.getDones());
         mRecyclerView.setAdapter(mAdapter);
-
-        String dateFormat = "EEE, MMM dd";
         mTitle.setText(mCause.getTitle());
         mDescription.setText(mCause.getDescription());
-        mDate.setText(DateFormat.format(dateFormat, mCause.getDate()).toString());
+        mDate.setText(mCause.getDate());
 
             Picasso.with(getActivity())
                     .load("https://www.simplifiedcoding.net/wp-content/uploads/2015/10/advertise.png")
@@ -134,7 +131,7 @@ public class CauseFragment extends Fragment {
 
                 CausesDone done = new CausesDone();
                 done.setTitle(data.getExtras().get(EXTRA_DONE_TITLE).toString());
-                done.setDoneDate((Date) data.getExtras().get(EXTRA_DONE_DATE));
+                done.setDoneDate(data.getExtras().get(EXTRA_DONE_DATE).toString());
 
                 mAdapter.addDone(done);
 
@@ -165,6 +162,7 @@ public class CauseFragment extends Fragment {
             mTitle.setText(mCausesDone.getTitle());
             mDate.setText(mCausesDone.getDoneDate());
             mStatusImage.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.circular_image_view_background));
+            Log.d(TAG, causesDone.toString());
         }
     }
 
