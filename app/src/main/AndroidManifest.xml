@@ -25,6 +25,8 @@
             android:parentActivityName=".CausesActivity"/>
         <activity android:name=".CauseActivity"
             android:parentActivityName=".CausesActivity"/>
+        <activity android:name=".LoginActivity"
+            android:theme="@style/LoginActivityThame"/>
 
     </application>
 

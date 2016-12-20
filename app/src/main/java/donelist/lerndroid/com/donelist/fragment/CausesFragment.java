@@ -33,11 +33,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import donelist.lerndroid.com.donelist.CauseActivity;
 import donelist.lerndroid.com.donelist.CauseLab;
+import donelist.lerndroid.com.donelist.LoginActivity;
 import donelist.lerndroid.com.donelist.NewCauseActivity;
 import donelist.lerndroid.com.donelist.R;
 import donelist.lerndroid.com.donelist.dialog.DonesReviewDialogFragment;
 import donelist.lerndroid.com.donelist.model.Cause;
-import donelist.lerndroid.com.donelist.model.CausesDone;
 
 /**
  * Created by ivan on 28.11.16.
@@ -122,19 +122,7 @@ public class CausesFragment extends Fragment {
             }
         });
 
-        Cause cause = new Cause();
-        cause.setmId(1);
-        cause.setPhotoPath("photoPath");
-        cause.setDate("daad");
-        cause.setTitle("title");
-        cause.setDescription("desc");
-        List<CausesDone> dones = new ArrayList<>();
-        dones.add(new CausesDone(1, "asf", "asf", "asd"));
-        cause.setDones(dones);
-
-       /* mDatabase.child("causes")
-                .push()
-                .setValue(cause);*/
+        startActivity(new Intent(getActivity(), LoginActivity.class));
     }
 
     public class CausesHolder extends RecyclerView.ViewHolder{

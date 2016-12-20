@@ -10,4 +10,9 @@
     <string name="send_report">Send cause via!</string>
     <string name="choose_date">Choose date</string>
     <string name="new_done">New Done</string>
+    <string name="username">USERNAME</string>
+    <string name="password">PASSWORD</string>
+    <string name="sign_in_button_text">Sign In</string>
+    <string name="don_t_have_an_account_tv_text">DON`T HAVE AN ACCOUNT?</string>
+    <string name="sign_up_tv_text">SIGN UP</string>
 </resources>

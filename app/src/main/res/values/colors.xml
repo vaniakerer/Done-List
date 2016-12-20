@@ -2,12 +2,14 @@
 <resources>
     <color name="colorPrimary">#607D8B</color>
     <color name="colorPrimaryDark">#455A64</color>
-    <color name="colorAccent">#00BCD4</color>
+    <color name="colorAccent">#50d2c2</color>
     <color name="colorLightPrimary">#CFD8DC</color>
     <color name="colorPrimaryText">#585858</color>
     <color name="colorSecondaryText">#757575</color>
     <color name="colorDivider">#212121</color>
     <color name="colorIconsText">#FFFFFF</color>
     <color name="white">#FFFFFF</color>
-    <color name="Background">#CFD8DC</color>
+    <color name="background">#ffffff</color>
+    <color name="edit_text_color_dark">#1d1d26</color>
+    <color name="edit_text_hint_color">#a8a8aa</color>
 </resources>
