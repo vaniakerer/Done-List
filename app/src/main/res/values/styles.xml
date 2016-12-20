@@ -43,8 +43,8 @@
     </style>
 
     <style name="MyAnimation.Window" parent="@android:style/Animation.Activity">
-        <item name="android:windowEnterAnimation">@anim/anim_in</item>
-        <item name="android:windowExitAnimation">@anim/anim_out</item>
+        <item name="android:windowEnterAnimation">@anim/anim_in_login_view</item>
+        <item name="android:windowExitAnimation">@anim/anim_out_login_view</item>
     </style>
 
 </resources>

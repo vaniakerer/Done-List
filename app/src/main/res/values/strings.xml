@@ -15,4 +15,5 @@
     <string name="sign_in_button_text">Sign In</string>
     <string name="don_t_have_an_account_tv_text">DON`T HAVE AN ACCOUNT?</string>
     <string name="sign_up_tv_text">SIGN UP</string>
+    <string name="log_in_with_social_tv_text">LOG IN WITH SOCIAL</string>
 </resources>
