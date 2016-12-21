@@ -1,5 +1,7 @@
 package donelist.lerndroid.com.donelist;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import donelist.lerndroid.com.donelist.fragment.LoginFragment;
@@ -9,6 +11,10 @@ import donelist.lerndroid.com.donelist.fragment.LoginFragment;
  */
 
 public class LoginActivity extends SingleFragmentActivity {
+    public static final Intent getIntent(Context context){
+        return new Intent(context, LoginActivity.class);
+    }
+
     @Override
     public Fragment createFragment() {
         return LoginFragment.newInstance();

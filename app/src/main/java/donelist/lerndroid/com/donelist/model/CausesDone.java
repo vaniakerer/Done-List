@@ -82,4 +82,6 @@ public class CausesDone {
     public String toString() {
         return this.getTitle() + " " + this.getmDescription() + " " + this.getDoneDate() + " " +  this.getmId();
     }
+
+    
 }

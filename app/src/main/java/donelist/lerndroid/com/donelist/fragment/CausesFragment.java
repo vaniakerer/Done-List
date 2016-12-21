@@ -17,7 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,6 +55,8 @@ public class CausesFragment extends Fragment {
     private CauseAdapter mCauseAdapter;
 
     private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
 
     @BindView(R.id.cause_fragment_recycler_view) RecyclerView mRecyclerView;
 
@@ -69,7 +74,6 @@ public class CausesFragment extends Fragment {
         updateUi();
         init();
 
-
         return v;
     }
 
@@ -77,6 +81,17 @@ public class CausesFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+
+        if (mUser != null){
+            Toast.makeText(getActivity(), "Hello, " + mUser.getEmail(), Toast.LENGTH_SHORT)
+                    .show();
+        }else {
+            startActivity(LoginActivity.getIntent(getActivity()));
+            getActivity().finish();
+        }
     }
 
     @Override
@@ -91,6 +106,10 @@ public class CausesFragment extends Fragment {
             case R.id.caused_menu_add_cause:
                 startActivity(new Intent(getActivity(), NewCauseActivity.class));
                 return true;
+            case R.id.caused_menu_logout:
+                mAuth.signOut();
+                startActivity(LoginActivity.getIntent(getActivity()));
+                getActivity().finish();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -122,7 +141,7 @@ public class CausesFragment extends Fragment {
             }
         });
 
-        startActivity(new Intent(getActivity(), LoginActivity.class));
+
     }
 
     public class CausesHolder extends RecyclerView.ViewHolder{

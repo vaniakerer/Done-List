@@ -17,4 +17,5 @@
     <string name="sign_up_tv_text">SIGN UP</string>
     <string name="log_in_with_social_tv_text">LOG IN WITH SOCIAL</string>
     <string name="log_in_with_login_password_tv_text">LOG IN WITH USERNAME</string>
+    <string name="fielt_cannot_be_empty">Заполните поле</string>
 </resources>

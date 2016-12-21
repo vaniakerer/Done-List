@@ -6,4 +6,10 @@
         android:title="@string/add_cause"
         android:icon="@drawable/ic_toolbar_add_cause"
         app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/caused_menu_logout"
+        android:title="@string/add_cause"
+        android:icon="@drawable/ic_action_name"
+        app:showAsAction="ifRoom"/>
 </menu>
