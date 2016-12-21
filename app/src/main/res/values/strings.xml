@@ -27,4 +27,7 @@
     <string name="something_goes_wrong">Something goes wrong!</string>
     <string name="something_goes_wrong_check_info">Check email and password</string>
     <string name="password_length_6_symbols">you need input min 6 sybols</string>
+
+    <string name="facebook_app_id">356776214680167</string>
+    <string name="fb_login_protocol_scheme">fb356776214680167</string>
 </resources>

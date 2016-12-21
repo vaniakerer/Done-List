@@ -18,9 +18,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pnikosis.materialishprogress.ProgressWheel;
@@ -57,11 +65,15 @@ public class LoginFragment extends Fragment {
     ProgressWheel mProgress;
     @BindView(R.id.fragment_login_logo_img)
     ImageView mLogoImg;
+    @BindView(R.id.login_with_facebook)
+    LoginButton loginButton;
 
     private boolean isLoginViewsVisible = true;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+
+    private CallbackManager mCallbackManager;
 
     public static final Fragment newInstance() {
         return new LoginFragment();
@@ -109,6 +121,8 @@ public class LoginFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, v);
         initListeners();
+        initFaceBookAuth();
+
         return v;
     }
 
@@ -160,6 +174,57 @@ public class LoginFragment extends Fragment {
         });
     }
 
+    private void initFaceBookAuth() {
+
+        loginButton.setReadPermissions("email");
+        // If using in a fragment
+        loginButton.setFragment(this);
+        // Other app specific specialization
+
+        mCallbackManager = CallbackManager.Factory.create();
+
+        // Callback registration
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "onSuccess");
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "onCancel");
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Log.d(TAG, "onError: " + exception.toString());
+
+            }
+        });
+    }
+
+    /**
+     *
+     * @param token - токен від facebook для авторизації
+     */
+    private void handleFacebookAccessToken(AccessToken token){
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithCredential", task.getException());
+                            Toast.makeText(getActivity(), "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        Toast.makeText(getActivity(), "Authentication success.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
     private boolean validateForm() {
         boolean valid = true;
 
@@ -185,7 +250,7 @@ public class LoginFragment extends Fragment {
             mLoginWithSocialTv.setText(R.string.log_in_with_login_password_tv_text);
             enableDisableViews(false);
             final Animation hideLoginAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_out_login_view);
-            final Animation showSocialAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_in_social_view);
+            final Animation showSocialAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_in_login_view);
 
             hideLoginAnimation.setFillAfter(true);
             showSocialAnimation.setFillAfter(true);
@@ -218,7 +283,7 @@ public class LoginFragment extends Fragment {
             mLoginWithSocialTv.setText(R.string.log_in_with_social_tv_text);
             enableDisableViews(true);
             final Animation showLoginViews = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_in_login_view);
-            final Animation hideLoginWithSocialViews = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_out_social_view);
+            final Animation hideLoginWithSocialViews = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_out_login_view);
             showLoginViews.setFillAfter(true);
             hideLoginWithSocialViews.setFillAfter(true);
 
@@ -310,6 +375,14 @@ public class LoginFragment extends Fragment {
             }
         });
         mLogoImg.startAnimation(showLogo);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Pass the activity result back to the Facebook SDK
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
