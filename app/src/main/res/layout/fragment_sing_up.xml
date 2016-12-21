@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="@dimen/window_padding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/login_linear">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@mipmap/ic_exit" />
+
+        <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/sign_up"
+            android:textColor="@color/edit_text_color_dark"
+            android:textSize="22sp"
+            />
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_centerInParent="true"
+            android:src="@color/colorAccent" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/login_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/login_type_container"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/edit_text_color_dark">
+
+            <donelist.lerndroid.com.donelist.custom_views.AvenirBookEditText
+                android:id="@+id/fragment_sign_in_user_full_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/full_name"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/edit_text_color_dark"
+                android:textColorHint="@color/edit_text_color_dark" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColorHint="@color/edit_text_color_dark">
+
+            <donelist.lerndroid.com.donelist.custom_views.AvenirBookEditText
+                android:id="@+id/fragment_sign_in_user_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/edit_text_color_dark"
+                android:textColorHint="@color/edit_text_color_dark" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColorHint="@color/edit_text_color_dark">
+
+            <donelist.lerndroid.com.donelist.custom_views.AvenirBookEditText
+                android:id="@+id/fragment_sign_in_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:textColor="@color/edit_text_color_dark"
+                android:textColorHint="@color/edit_text_color_dark" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColorHint="@color/edit_text_color_dark">
+
+            <donelist.lerndroid.com.donelist.custom_views.AvenirBookEditText
+                android:id="@+id/fragment_sign_in_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/birthday"
+                android:inputType="date"
+                android:textColor="@color/edit_text_color_dark"
+                android:textColorHint="@color/edit_text_color_dark" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <donelist.lerndroid.com.donelist.custom_views.AvenirBookButton
+            android:id="@+id/fragment_sign_in_create_button"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="@dimen/sign_in_button_top_margin"
+            android:background="@color/colorAccent"
+            android:text="@string/sign_in_button_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sign_in_button_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/login_type_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/have_no_acc_top_margin"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+            android:id="@+id/fragment_sign_in_have_an_acc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/already_have_an_account_tv_text"
+            android:textColor="@color/edit_text_hint_color"
+            android:textSize="@dimen/sign_in_button_size" />
+
+        <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+            android:id="@+id/fragment_sign_in_sign_in_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_in"
+            android:textColor="@color/edit_text_color_dark"
+            android:textSize="@dimen/sign_in_button_size" />
+
+    </LinearLayout>
+</RelativeLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -78,6 +79,24 @@ public class LoginFragment extends Fragment {
                 }
             }
         };
+
+
+        mAuth.createUserWithEmailAndPassword("vaniakerer9@gmail.com", "qweewqqwe")
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "Complated");
+                        if (task.isSuccessful()){
+                            Log.d(TAG, "Success");
+
+
+                        } else {
+                            Log.d(TAG, String.valueOf(task.getException()));
+
+                        }
+                    }
+                });
+
     }
 
     @Nullable
@@ -131,6 +150,16 @@ public class LoginFragment extends Fragment {
                                 }
                             }
                         });
+            }
+        });
+
+        mSignUpTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, SignInFragment.newInstance(), SignInFragment.TAG)
+                        .commit();
             }
         });
     }
