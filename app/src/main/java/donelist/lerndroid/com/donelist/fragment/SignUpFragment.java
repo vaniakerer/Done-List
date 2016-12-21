@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -88,48 +89,46 @@ public class SignUpFragment extends Fragment {
     }
 
     private void createUser() {
-        if (validateForm()) {
+        if (!validateForm()) {
             return;
         }
 
-            mProgress.setVisibility(View.VISIBLE);
-            mLogoImg.setVisibility(View.GONE);
+        hideLogo();
 
-            String email = mUserEmailTv.getText().toString();
-            String password = mUserPasswordTv.getText().toString();
-            final String fullName = mUserNameTv.getText().toString();
+        String email = mUserEmailTv.getText().toString();
+        String password = mUserPasswordTv.getText().toString();
+        final String fullName = mUserNameTv.getText().toString();
 
-            final FirebaseAuth auth = FirebaseAuth.getInstance();
-            auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                UserProfileChangeRequest updateProfile = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(fullName)
-                                        .build();
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            UserProfileChangeRequest updateProfile = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(fullName)
+                                    .build();
 
-                                FirebaseUser user = auth.getCurrentUser();
+                            FirebaseUser user = auth.getCurrentUser();
 
-                                Log.d(TAG, String.valueOf(user != null));
-                                if (user != null) {
-                                    user.updateProfile(updateProfile)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    Log.d(TAG, String.valueOf(task.isSuccessful()));
-                                                    getActivity().finish();
-                                                }
-                                            });
-                                }
-                            } else {
-                                mProgress.setVisibility(View.GONE);
-                                mLogoImg.setVisibility(View.VISIBLE);
-                                Toast.makeText(getActivity(), R.string.something_goes_wrong, Toast.LENGTH_SHORT)
-                                        .show();
+                            Log.d(TAG, String.valueOf(user != null));
+                            if (user != null) {
+                                user.updateProfile(updateProfile)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Log.d(TAG, String.valueOf(task.isSuccessful()));
+                                                getActivity().finish();
+                                            }
+                                        });
                             }
+                        } else {
+                            showLogo();
+                            Toast.makeText(getActivity(), R.string.something_goes_wrong, Toast.LENGTH_SHORT)
+                                    .show();
                         }
-                    });
+                    }
+                });
 
     }
 
@@ -137,24 +136,70 @@ public class SignUpFragment extends Fragment {
         boolean valid = true;
 
         String name = mUserNameTv.getText().toString();
-        if (TextUtils.isEmpty(name)) {
+        if (name.length() == 0) {
             mUserNameTv.setError(getString(R.string.fielt_cannot_be_empty));
             valid = false;
         }
 
         String email = mUserEmailTv.getText().toString();
-        if (TextUtils.isEmpty(email)) {
+        if (email.length() == 0) {
             mUserEmailTv.setError(getString(R.string.fielt_cannot_be_empty));
             valid = false;
         }
 
         String password = mUserPasswordTv.getText().toString();
-        if (TextUtils.isEmpty(password)) {
-            mUserPasswordTv.setError(getString(R.string.fielt_cannot_be_empty));
+
+        if (password.length() < 6) {
+            mUserPasswordTv.setError(getString(R.string.password_length_6_symbols));
             valid = false;
         }
 
         return valid;
+    }
+
+    private void showLogo() {
+        Animation showLogo = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_in_login_view);
+        showLogo.setFillAfter(true);
+        showLogo.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mProgress.setVisibility(View.GONE);
+                mLogoImg.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mProgress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        mLogoImg.startAnimation(showLogo);
+    }
+
+    private void hideLogo() {
+        Animation showLogo = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_out_login_view);
+        showLogo.setFillAfter(true);
+        showLogo.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mLogoImg.setVisibility(View.GONE);
+                mProgress.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        mLogoImg.startAnimation(showLogo);
     }
 
 

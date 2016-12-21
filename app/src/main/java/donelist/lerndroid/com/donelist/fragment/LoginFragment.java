@@ -55,7 +55,7 @@ public class LoginFragment extends Fragment {
     Button mSignInButton;
     @BindView(R.id.fragment_login_progress)
     ProgressWheel mProgress;
-    @BindView(R.id.fragment_sign_in_logo_img)
+    @BindView(R.id.fragment_login_logo_img)
     ImageView mLogoImg;
 
     private boolean isLoginViewsVisible = true;
@@ -101,7 +101,6 @@ public class LoginFragment extends Fragment {
                         }
                     }
                 });
-
     }
 
     @Nullable
@@ -138,8 +137,7 @@ public class LoginFragment extends Fragment {
                 if (!validateForm()) {
                     return;
                 }
-                mProgress.setVisibility(View.VISIBLE);
-                mLogoImg.setVisibility(View.GONE);
+                hideLogo();
 
                 String email = mUserLoginEd.getText().toString();
                 String password = mUserPasswordEd.getText().toString();
@@ -152,9 +150,8 @@ public class LoginFragment extends Fragment {
                                     startActivity(new Intent(getActivity(), CausesActivity.class));
                                 } else {
                                     Log.d(TAG, String.valueOf(task.getException()));
-                                    mProgress.setVisibility(View.GONE);
-                                    mLogoImg.setVisibility(View.VISIBLE);
-                                    Toast.makeText(getActivity(), R.string.something_goes_wrong, Toast.LENGTH_SHORT)
+                                    showLogo();
+                                    Toast.makeText(getActivity(), R.string.something_goes_wrong_check_info, Toast.LENGTH_SHORT)
                                             .show();
                                 }
                             }
@@ -267,6 +264,52 @@ public class LoginFragment extends Fragment {
     private void enableDisableViews(boolean enabled) {
         mUserLoginEd.setEnabled(enabled);
         mUserPasswordEd.setEnabled(enabled);
+        mSignInButton.setEnabled(enabled);
+    }
+
+    private void showLogo() {
+        Animation showLogo = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_in_login_view);
+        showLogo.setFillAfter(true);
+        showLogo.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mProgress.setVisibility(View.GONE);
+                mLogoImg.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mProgress.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        mLogoImg.startAnimation(showLogo);
+    }
+
+    private void hideLogo() {
+        Animation showLogo = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_out_login_view);
+        showLogo.setFillAfter(true);
+        showLogo.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mLogoImg.setVisibility(View.GONE);
+                mProgress.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        mLogoImg.startAnimation(showLogo);
     }
 
     @Override

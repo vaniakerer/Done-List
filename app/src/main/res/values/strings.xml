@@ -25,4 +25,6 @@
     <string name="full_name">FULL NAME</string>
     <string name="sign_up">Sign up</string>
     <string name="something_goes_wrong">Something goes wrong!</string>
+    <string name="something_goes_wrong_check_info">Check email and password</string>
+    <string name="password_length_6_symbols">you need input min 6 sybols</string>
 </resources>

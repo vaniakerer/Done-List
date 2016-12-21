@@ -138,6 +138,8 @@ public class CausesFragment extends Fragment {
     //ініціалізація бд
     private void init(){
 
+
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mDatabase.child("causes").addValueEventListener(new ValueEventListener() {
