@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:padding="@dimen/window_padding">
 
@@ -13,6 +14,18 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="50dp"
         android:src="@drawable/times_logo" />
+
+    <com.pnikosis.materialishprogress.ProgressWheel
+        android:id="@+id/fragment_login_progress"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        app:matProg_barColor="@color/colorAccent"
+        app:matProg_rimColor="@color/white"
+        android:visibility="gone"
+        app:matProg_progressIndeterminate="true"/>
 
     <FrameLayout
         android:layout_width="match_parent"

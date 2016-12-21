@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,19 +13,23 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import donelist.lerndroid.com.donelist.CausesActivity;
 import donelist.lerndroid.com.donelist.R;
+import donelist.lerndroid.com.donelist.SignUpActivity;
 import donelist.lerndroid.com.donelist.custom_views.AvenirBookEditText;
 
 /**
@@ -50,6 +53,10 @@ public class LoginFragment extends Fragment {
     AvenirBookEditText mUserPasswordEd;
     @BindView(R.id.fragment_login_sign_in_button)
     Button mSignInButton;
+    @BindView(R.id.fragment_login_progress)
+    ProgressWheel mProgress;
+    @BindView(R.id.fragment_sign_in_logo_img)
+    ImageView mLogoImg;
 
     private boolean isLoginViewsVisible = true;
 
@@ -86,10 +93,8 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "Complated");
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Log.d(TAG, "Success");
-
-
                         } else {
                             Log.d(TAG, String.valueOf(task.getException()));
 
@@ -121,19 +126,20 @@ public class LoginFragment extends Fragment {
         mSignUpTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO create sign up fragment
+                startActivity(SignUpActivity.getIntent(getActivity()));
             }
         });
 
         mSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "We Are Here");
 
                 //Пробуєм авторизуватись через email/password
                 if (!validateForm()) {
                     return;
                 }
+                mProgress.setVisibility(View.VISIBLE);
+                mLogoImg.setVisibility(View.GONE);
 
                 String email = mUserLoginEd.getText().toString();
                 String password = mUserPasswordEd.getText().toString();
@@ -142,24 +148,17 @@ public class LoginFragment extends Fragment {
                         .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Log.d(TAG, "We Are Here");
                                 if (task.isSuccessful()) {
                                     startActivity(new Intent(getActivity(), CausesActivity.class));
                                 } else {
                                     Log.d(TAG, String.valueOf(task.getException()));
+                                    mProgress.setVisibility(View.GONE);
+                                    mLogoImg.setVisibility(View.VISIBLE);
+                                    Toast.makeText(getActivity(), R.string.something_goes_wrong, Toast.LENGTH_SHORT)
+                                            .show();
                                 }
                             }
                         });
-            }
-        });
-
-        mSignUpTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getFragmentManager();
-                fm.beginTransaction()
-                        .replace(R.id.fragment_container, SignInFragment.newInstance(), SignInFragment.TAG)
-                        .commit();
             }
         });
     }

@@ -24,4 +24,5 @@
     <string name="email">EMAIL</string>
     <string name="full_name">FULL NAME</string>
     <string name="sign_up">Sign up</string>
+    <string name="something_goes_wrong">Something goes wrong!</string>
 </resources>

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:padding="@dimen/window_padding">
 
@@ -11,9 +12,10 @@
         android:layout_above="@+id/login_linear">
 
         <ImageView
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:src="@mipmap/ic_exit" />
+            android:id="@+id/fragment_sign_up_exit_img"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_exit" />
 
         <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
             android:layout_width="wrap_content"
@@ -25,10 +27,22 @@
             />
 
         <ImageView
+            android:id="@+id/fragment_sign_in_logo_img"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_centerInParent="true"
-            android:src="@color/colorAccent" />
+            android:src="@drawable/times_logo" />
+
+        <com.pnikosis.materialishprogress.ProgressWheel
+            android:id="@+id/fragment_sign_in_progress"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            app:matProg_barColor="@color/colorAccent"
+            app:matProg_rimColor="@color/white"
+            app:matProg_progressIndeterminate="true"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            />
 
     </RelativeLayout>
 
@@ -85,23 +99,6 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:textColor="@color/edit_text_color_dark"
-                android:textColorHint="@color/edit_text_color_dark" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:textColorHint="@color/edit_text_color_dark">
-
-            <donelist.lerndroid.com.donelist.custom_views.AvenirBookEditText
-                android:id="@+id/fragment_sign_in_birthday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/birthday"
-                android:inputType="date"
                 android:textColor="@color/edit_text_color_dark"
                 android:textColorHint="@color/edit_text_color_dark" />
 
