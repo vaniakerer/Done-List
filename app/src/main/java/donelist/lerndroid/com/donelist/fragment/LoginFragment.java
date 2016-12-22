@@ -24,6 +24,13 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -31,10 +38,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.pnikosis.materialishprogress.ProgressWheel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import donelist.lerndroid.com.donelist.CausesActivity;
 import donelist.lerndroid.com.donelist.R;
 import donelist.lerndroid.com.donelist.SignUpActivity;
@@ -44,8 +53,9 @@ import donelist.lerndroid.com.donelist.custom_views.AvenirBookEditText;
  * Created by ivan on 20.12.16.
  */
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
     private final String TAG = "LoginFragment";
+    private static final int REQUEST_GOOGLE_SIGN_IN = 101;
 
     @BindView(R.id.login_linear)
     LinearLayout mLoginViewsLin;
@@ -65,15 +75,23 @@ public class LoginFragment extends Fragment {
     ProgressWheel mProgress;
     @BindView(R.id.fragment_login_logo_img)
     ImageView mLogoImg;
+    //Facebook login button
     @BindView(R.id.login_with_facebook)
     LoginButton loginButton;
+    //Google plus login button
+    @BindView(R.id.login_with_google_plus)
+    SignInButton mGoogleSignInButton;
 
     private boolean isLoginViewsVisible = true;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    //facebook
     private CallbackManager mCallbackManager;
+
+    //google+
+    private GoogleApiClient mGoogleApiClient;
 
     public static final Fragment newInstance() {
         return new LoginFragment();
@@ -99,20 +117,16 @@ public class LoginFragment extends Fragment {
             }
         };
 
+        //configure Google Sign-In to request the user data required by app
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
 
-        mAuth.createUserWithEmailAndPassword("vaniakerer9@gmail.com", "qweewqqwe")
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "Complated");
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "Success");
-                        } else {
-                            Log.d(TAG, String.valueOf(task.getException()));
-
-                        }
-                    }
-                });
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .enableAutoManage(getActivity() /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
 
     @Nullable
@@ -121,7 +135,7 @@ public class LoginFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         ButterKnife.bind(this, v);
         initListeners();
-        initFaceBookAuth();
+        initFacebookAuth();
 
         return v;
     }
@@ -174,7 +188,7 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    private void initFaceBookAuth() {
+    private void initFacebookAuth() {
 
         loginButton.setReadPermissions("email");
         // If using in a fragment
@@ -205,10 +219,11 @@ public class LoginFragment extends Fragment {
     }
 
     /**
+     * FACEBOOK
      *
      * @param token - токен від facebook для авторизації
      */
-    private void handleFacebookAccessToken(AccessToken token){
+    private void handleFacebookAccessToken(AccessToken token) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -217,14 +232,59 @@ public class LoginFragment extends Fragment {
 
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(getActivity(), "Authentication failed.",
+                            Toast.makeText(getActivity(), R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
                         }
-                        Toast.makeText(getActivity(), "Authentication success.",
+                        Toast.makeText(getActivity(), R.string.auth_success,
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
+    /**
+     * GOOGLE PLUS
+     */
+    private void handleGoogleSignINResult(GoogleSignInResult result) {
+        if (result.isSuccess()) {
+            GoogleSignInAccount googleAccount = result.getSignInAccount();
+            AuthCredential credential = GoogleAuthProvider.getCredential(googleAccount.getIdToken(), null);
+
+            mAuth.signInWithCredential(credential)
+                    .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getActivity(), R.string.auth_success, Toast.LENGTH_SHORT)
+                                        .show();
+                            } else {
+                                Toast.makeText(getActivity(), R.string.auth_failed, Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        }
+                    });
+
+        }
+    }
+
+    @OnClick(R.id.login_with_google_plus)
+    public void signInWithGooglePlus() {
+        Intent googleSignInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(googleSignInIntent, REQUEST_GOOGLE_SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_GOOGLE_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleGoogleSignINResult(result);
+        }
+
+        // Pass the activity result back to the Facebook SDK
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
     private boolean validateForm() {
         boolean valid = true;
 
@@ -377,12 +437,10 @@ public class LoginFragment extends Fragment {
         mLogoImg.startAnimation(showLogo);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        // Pass the activity result back to the Facebook SDK
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 
     @Override
@@ -404,4 +462,6 @@ public class LoginFragment extends Fragment {
         mAuth.removeAuthStateListener(mAuthListener);
         super.onDestroy();
     }
+
+
 }
