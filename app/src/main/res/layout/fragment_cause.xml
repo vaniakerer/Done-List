@@ -33,7 +33,8 @@
                         android:id="@+id/cause_fragment_cause_image"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorPrimaryDark"
+                        />
 
                     <ImageButton
                         android:id="@+id/cause_fragment_make_photo_button"
@@ -53,7 +54,10 @@
                         android:layout_height="wrap_content"
                         android:text="Title"
                         android:textColor="@color/card_view_title_text_color"
-                        android:textSize="@dimen/card_view_title_text_size" />
+                        android:textSize="@dimen/card_view_title_text_size"
+
+                        android:transitionName="@string/transition_name_title"
+                        />
 
                     <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
                         android:id="@+id/cause_fragment_cause_description_tv"
@@ -61,7 +65,9 @@
                         android:layout_height="wrap_content"
                         android:text="afasfagasfasfkasjfajsfas;'ksas;kjaf;asfj;asjf;asjf;asjf;asfjas;lfjas;fjas;jfas;fjas;jfas;jfa;sjf;asjf;asjf;asj;fasjf;jas;fjlas;fjas;jfas;fjas;fjas;fjas;fja;sjfas;jfas;fja;sfjas;jfas;jfas;fjl"
                         android:textColor="@color/colorSecondaryText"
-                        android:textSize="@dimen/secondary_text_size" />
+                        android:textSize="@dimen/secondary_text_size"
+                        android:transitionName="@string/transition_name_description"
+                        />
 
                     <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
                         android:id="@+id/cause_fragment_cause_date_tv"
@@ -70,7 +76,9 @@
                         android:layout_gravity="right"
                         android:text="20 Juli 2016"
                         android:textColor="@color/colorSecondaryText"
-                        android:textSize="@dimen/secondary_text_size" />
+                        android:textSize="@dimen/secondary_text_size"
+                        android:transitionName="@string/transition_name_date"
+                        />
                 </LinearLayout>
             </LinearLayout>
 

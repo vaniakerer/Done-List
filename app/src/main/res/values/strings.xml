@@ -33,4 +33,9 @@
     <string name="auth_failed">Authentication failed!</string>
     <string name="auth_success">Authentication success!</string>
     <string name="_25_june_2016">25 June 2016</string>
+
+
+    <string name="transition_name_title">transition:TITLE</string>
+    <string name="transition_name_description">transition:DESCRIPTION</string>
+    <string name="transition_name_date">transition:DATE</string>
 </resources>

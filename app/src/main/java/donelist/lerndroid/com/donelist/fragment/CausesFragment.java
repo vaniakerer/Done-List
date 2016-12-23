@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ShareCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -185,6 +189,9 @@ public class CausesFragment extends Fragment {
         TextView mCauseShareButton;
         @BindView(R.id.card_item_cause_preview_tv)
         TextView mCausepreviewButton;
+        @BindView(R.id.card_item_watch_img)
+        ImageView mWatchImg;
+
         private Cause mCause;
 
         public CausesHolder(View itemView) {
@@ -206,7 +213,20 @@ public class CausesFragment extends Fragment {
         public void onCardClick(View v) {
             Intent intent = new Intent(getActivity(), CauseActivity.class);
             intent.putExtra(EXTRA_CAUSE_ID, mCause.getId());
-            startActivity(intent);
+
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+
+                    new Pair<View, String>(v.findViewById(R.id.card_item_cause_title_tv),
+                            getString(R.string.transition_name_title)),
+                    new Pair<View, String>(v.findViewById(R.id.card_item_cause_description_tv),
+                            getString(R.string.transition_name_description)),
+                    new Pair<View, String>(v.findViewById(R.id.card_item_cause_date_tv),
+                            getString(R.string.transition_name_date))
+            );
+
+            ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+
+            /*startActivity(intent);*/
         }
 
         @OnClick(R.id.card_item_cause_preview_tv)

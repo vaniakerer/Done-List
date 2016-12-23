@@ -16,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -42,6 +44,8 @@ public class CauseFragment extends Fragment {
     private static final String EXTRA_DONE_DATE = "donelist.lerndriod.com.donelist.done_date";
 
     private static final int REQUEST_NEW_DONE = 1;
+
+    private DatabaseReference mDatabase;
 
     private Cause mCause;
     private CauseDoneAdapter mAdapter;
@@ -85,6 +89,10 @@ public class CauseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCause = CauseLab.get(getActivity()).getCause(getArguments().getInt(ARG_CAUSE_ID));
+
+        //init firebase database
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
     }
 
     private void initUi() {
@@ -130,11 +138,15 @@ public class CauseFragment extends Fragment {
                 CausesDone done = new CausesDone();
                 done.setmTitle(data.getExtras().get(EXTRA_DONE_TITLE).toString());
                 done.setmDoneDate(data.getExtras().get(EXTRA_DONE_DATE).toString());
-
+                done.setmDescription("default description");
                 mAdapter.addDone(done);
 
                 mNoDones.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
+
+                //insert this done into firebase database
+                mDatabase.child("causes").child("2").child("mDones").child(String.valueOf(mCause.getDones().size())).setValue(done);
+
                 break;
         }
     }
