@@ -8,10 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textViewStyle">@style/MyTextViewStyle</item>
         <item name="editTextStyle">@style/MyEditTextStyle</item>
-
         <item name="colorControlNormal">#c5c5c5</item>
-
-
     </style>
 
     <style name="LoginActivityThame" parent="Theme.AppCompat.Light.NoActionBar">
@@ -29,8 +26,16 @@
         <item name="android:padding">8dp</item>
     </style>
 
+
+    <style name="MyTextViewNoPaddingStyle" parent="TextAppearance.AppCompat">
+        <item name="android:padding">0dp</item>
+    </style>
+
     <style name="CardViewStyle" parent="CardView">
-        <item name="android:padding">@dimen/card_view_padding</item>
+        <item name="android:paddingTop">@dimen/card_view_top_padding</item>
+        <item name="android:paddingBottom">@dimen/card_view_bottom_padding</item>
+        <item name="android:paddingRight">@dimen/card_view_left_right_padding</item>
+        <item name="android:paddingLeft">@dimen/card_view_left_right_padding</item>
         <item name="android:layout_margin">@dimen/card_view_margin</item>
     </style>
 

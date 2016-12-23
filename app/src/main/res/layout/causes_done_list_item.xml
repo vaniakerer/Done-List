@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="16dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingTop="16dp">
 
-    <LinearLayout
+    <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+        android:id="@+id/cause_done_list_item_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cause_done_list_item_status_img"
+        android:layout_toLeftOf="@+id/cause_done_list_item_date_tv"
+        android:text="Title"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18dp" />
+
+    <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+        android:id="@+id/cause_done_list_item_date_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignParentRight="true"
+        android:text="20 Juli 2016"
+        android:textColor="@color/card_view_secondary_text_color" />
 
-        <TextView
-            android:id="@+id/cause_done_list_item_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Title"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/cause_done_list_item_date_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorSecondaryText" />
-
-    </LinearLayout>
 
     <ImageView
         android:id="@+id/cause_done_list_item_status_img"
-        android:layout_width="20dp"
+        android:layout_width="28dp"
         android:layout_height="20dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_margin="8dp"
-        android:src="@color/colorPrimary" />
+        android:src="@drawable/ic_check_done_list_item"
+        android:layout_marginRight="8dp"/>
 
 </RelativeLayout>
 

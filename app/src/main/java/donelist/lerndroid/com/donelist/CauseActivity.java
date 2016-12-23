@@ -14,6 +14,6 @@ public class CauseActivity extends SingleFragmentActivity {
 
     @Override
     public Fragment createFragment() {
-        return CauseFragment.newInstance(getIntent().getIntExtra(EXTRA_CAUSE_ID, 0));
+        return CauseFragment.newInstance(getIntent().getIntExtra(EXTRA_CAUSE_ID, 1));
     }
 }

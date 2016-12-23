@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -86,7 +85,6 @@ public class CauseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCause = CauseLab.get(getActivity()).getCause(getArguments().getInt(ARG_CAUSE_ID));
-
     }
 
     private void initUi() {
@@ -94,10 +92,10 @@ public class CauseFragment extends Fragment {
             this.onDestroy();
         }
 
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new CauseDoneAdapter(mCause.getDones());
         mRecyclerView.setAdapter(mAdapter);
+
         mTitle.setText(mCause.getTitle());
         mDescription.setText(mCause.getDescription());
         mDate.setText(mCause.getDate());
@@ -130,8 +128,8 @@ public class CauseFragment extends Fragment {
             case REQUEST_NEW_DONE:
 
                 CausesDone done = new CausesDone();
-                done.setTitle(data.getExtras().get(EXTRA_DONE_TITLE).toString());
-                done.setDoneDate(data.getExtras().get(EXTRA_DONE_DATE).toString());
+                done.setmTitle(data.getExtras().get(EXTRA_DONE_TITLE).toString());
+                done.setmDoneDate(data.getExtras().get(EXTRA_DONE_DATE).toString());
 
                 mAdapter.addDone(done);
 
@@ -159,9 +157,8 @@ public class CauseFragment extends Fragment {
 
         public void bindView(CausesDone causesDone) {
             mCausesDone = causesDone;
-            mTitle.setText(mCausesDone.getTitle());
-            mDate.setText(mCausesDone.getDoneDate());
-            mStatusImage.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.circular_image_view_background));
+            mTitle.setText(mCausesDone.getmTitle());
+            mDate.setText(mCausesDone.getmDoneDate());
             Log.d(TAG, causesDone.toString());
         }
     }
@@ -197,5 +194,4 @@ public class CauseFragment extends Fragment {
             notifyItemInserted(mCausesDones.size() - 1);
         }
     }
-
 }

@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ShareCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +50,7 @@ import donelist.lerndroid.com.donelist.model.Cause;
 
 public class CausesFragment extends Fragment {
     private static final String TAG = "CausesFragment";
-    private static final  String ARG_CAUSE_ID = "cause_id";
+    private static final String ARG_CAUSE_ID = "cause_id";
     private static final String DIALOG_REVIEW = "DialogReview";
     private static final String EXTRA_CAUSE_ID = "donelist.lerndriod.com.donelist.cause_id";
 
@@ -62,10 +60,11 @@ public class CausesFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
 
-    @BindView(R.id.cause_fragment_recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.cause_fragment_recycler_view)
+    RecyclerView mRecyclerView;
 
 
-    public static CausesFragment newInstance(){
+    public static CausesFragment newInstance() {
         return new CausesFragment();
     }
 
@@ -83,13 +82,15 @@ public class CausesFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setHasOptionsMenu(true);
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
-        if (mUser != null){
+        if (mUser != null) {
             Toast.makeText(getActivity(), "Hello, " + mUser.getDisplayName(), Toast.LENGTH_SHORT)
                     .show();
 
@@ -107,7 +108,7 @@ public class CausesFragment extends Fragment {
                             Log.d(TAG, String.valueOf(task.isSuccessful()));
                         }
                     });
-        }else {
+        } else {
             startActivity(LoginActivity.getIntent(getActivity()));
             getActivity().finish();
         }
@@ -121,7 +122,7 @@ public class CausesFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.caused_menu_add_cause:
                 startActivity(new Intent(getActivity(), NewCauseActivity.class));
                 return true;
@@ -136,9 +137,7 @@ public class CausesFragment extends Fragment {
     }
 
     //ініціалізація бд
-    private void init(){
-
-
+    private void init() {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -149,7 +148,7 @@ public class CausesFragment extends Fragment {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Cause cause = dataSnapshot1.getValue(Cause.class);
                     causes.add(cause);
-                    Log.d("", String.valueOf(causes.size()));
+                    Log.d(TAG, cause.getDones().get(1).getmTitle());
                 }
 
                 CauseLab.get(getActivity()).setCauses(causes);
@@ -162,17 +161,30 @@ public class CausesFragment extends Fragment {
             }
         });
 
+  /*      List<CausesDone> dones = new ArrayList<>();
+        dones.add(new CausesDone(2, "done title", "done description", "20 October 2017"));
+        dones.add(new CausesDone(2, "done title", "done description", "20 October 2017"));
+        dones.add(new CausesDone(2, "done title", "done description", "20 October 2017"));
+
+        Cause cause = new Cause(5, "Title", "Description", "20 Jali 2017", dones);
+
+        mDatabase.child("causes").child("3")
+                .setValue(cause);*/
+
 
     }
 
-    public class CausesHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.card_item_cause_cardview) CardView mCauseCard;
-        @BindView(R.id.card_item_cause_image_imv) ImageView mCauseImage;
-        @BindView(R.id.card_item_cause_title_tv) TextView mCauseTitle;
-        @BindView(R.id.card_item_cause_description_tv) TextView mCauseDescription;
-        @BindView(R.id.card_item_cause_date_tv) TextView mCauseDate;
-        @BindView(R.id.card_item_cause_share_tv) TextView mCauseShareButton;
-        @BindView(R.id.card_item_cause_preview_tv) TextView mCausepreviewButton;
+    public class CausesHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.card_item_cause_title_tv)
+        TextView mCauseTitle;
+        @BindView(R.id.card_item_cause_description_tv)
+        TextView mCauseDescription;
+        @BindView(R.id.card_item_cause_date_tv)
+        TextView mCauseDate;
+        @BindView(R.id.card_item_cause_share_tv)
+        TextView mCauseShareButton;
+        @BindView(R.id.card_item_cause_preview_tv)
+        TextView mCausepreviewButton;
         private Cause mCause;
 
         public CausesHolder(View itemView) {
@@ -180,7 +192,7 @@ public class CausesFragment extends Fragment {
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindCause(Cause cause){
+        public void bindCause(Cause cause) {
             //TODO seting images
             SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
 
@@ -198,13 +210,13 @@ public class CausesFragment extends Fragment {
         }
 
         @OnClick(R.id.card_item_cause_preview_tv)
-        public void onPreviewClick(){
+        public void onPreviewClick() {
             DonesReviewDialogFragment reviewDialog = DonesReviewDialogFragment.newInstance(mCause.getId());
             reviewDialog.show(getFragmentManager(), DIALOG_REVIEW);
         }
 
         @OnClick(R.id.card_item_cause_share_tv)
-        public void share(){
+        public void share() {
             Intent i = ShareCompat.IntentBuilder.from(getActivity())
                     .setType("text/plain")
                     .setText(getCauseForShare())
@@ -215,17 +227,17 @@ public class CausesFragment extends Fragment {
             startActivity(i);
         }
 
-        private String getCauseForShare(){
-            String dateString =  mCause.getDate();
+        private String getCauseForShare() {
+            String dateString = mCause.getDate();
 
             return mCause.getTitle() + ":" + mCause.getDescription() + "\n" + dateString;
         }
     }
 
-    public class CauseAdapter extends RecyclerView.Adapter<CausesHolder>{
+    public class CauseAdapter extends RecyclerView.Adapter<CausesHolder> {
         private List<Cause> mCauses;
 
-        public CauseAdapter(List<Cause> causes){
+        public CauseAdapter(List<Cause> causes) {
             mCauses = causes;
         }
 
@@ -247,19 +259,19 @@ public class CausesFragment extends Fragment {
             return mCauses.size();
         }
 
-        private void setCauses(List<Cause> causes){
+        private void setCauses(List<Cause> causes) {
             mCauses = causes;
         }
 
     }
 
-    private void updateUi(){
+    private void updateUi() {
         List<Cause> causes = CauseLab.get(getActivity()).getCauses();
 
-        if (mCauseAdapter == null){
+        if (mCauseAdapter == null) {
             mCauseAdapter = new CauseAdapter(causes);
             mRecyclerView.setAdapter(mCauseAdapter);
-        }else {
+        } else {
             mCauseAdapter.setCauses(causes);
             mCauseAdapter.notifyDataSetChanged();
         }

@@ -32,4 +32,5 @@
     <string name="fb_login_protocol_scheme">fb356776214680167</string>
     <string name="auth_failed">Authentication failed!</string>
     <string name="auth_success">Authentication success!</string>
+    <string name="_25_june_2016">25 June 2016</string>
 </resources>

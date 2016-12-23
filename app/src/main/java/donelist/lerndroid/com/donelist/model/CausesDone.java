@@ -22,40 +22,8 @@ public class CausesDone {
     public CausesDone() {
     }
 
-    public String getTitle() {
-        return mTitle;
-    }
-
-    public void setTitle(String mTitle) {
-        this.mTitle = mTitle;
-    }
-
-    public String getmDescription() {
-        return mDescription;
-    }
-
-    public void setmDescription(String mDescription) {
-        this.mDescription = mDescription;
-    }
-
     public int getmId() {
         return mId;
-    }
-
-    public String getDoneDate() {
-        return mDoneDate;
-    }
-
-    public void setDoneDate(String mDoneDate) {
-        this.mDoneDate = mDoneDate;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 
     public void setmId(int mId) {
@@ -70,6 +38,14 @@ public class CausesDone {
         this.mTitle = mTitle;
     }
 
+    public String getmDescription() {
+        return mDescription;
+    }
+
+    public void setmDescription(String mDescription) {
+        this.mDescription = mDescription;
+    }
+
     public String getmDoneDate() {
         return mDoneDate;
     }
@@ -78,10 +54,19 @@ public class CausesDone {
         this.mDoneDate = mDoneDate;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return this.getTitle() + " " + this.getmDescription() + " " + this.getDoneDate() + " " +  this.getmId();
+        return this.getmTitle() + " " + this.getmDescription() + " " + this.getmDoneDate() + " " +  this.getmId();
     }
+
 
 
 }

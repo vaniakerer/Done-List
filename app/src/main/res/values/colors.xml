@@ -12,4 +12,7 @@
     <color name="background">#ffffff</color>
     <color name="edit_text_color_dark">#1d1d26</color>
     <color name="edit_text_hint_color">#a8a8aa</color>
+    <color name="card_view_title_text_color">#1d1d26</color>
+    <color name="card_view_secondary_text_color">#bbbbbd</color>
+    <color name="card_view_watch_color">#1d1d25</color>
 </resources>

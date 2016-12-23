@@ -80,9 +80,9 @@ public class DonesReviewDialogFragment extends DialogFragment {
         public void bindDone(CausesDone done) {
             mDone = done;
 
-            mTitle.setText(mDone.getTitle());
+            mTitle.setText(mDone.getmTitle());
             mDescription.setText(mDone.getmDescription());
-            mDate.setText(mDone.getDoneDate());
+            mDate.setText(mDone.getmDoneDate());
         }
     }
 
