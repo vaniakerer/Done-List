@@ -67,9 +67,9 @@ public class CauseFragment extends Fragment {
     @BindView(R.id.cause_fragment_recycler_view)
     RecyclerView mRecyclerView;
 
-    public static CauseFragment newInstance(int causeId) {
+    public static CauseFragment newInstance(String causeId) {
         Bundle args = new Bundle();
-        args.putInt(ARG_CAUSE_ID, causeId);
+        args.putString(ARG_CAUSE_ID, causeId);
         CauseFragment fragment = new CauseFragment();
         fragment.setArguments(args);
         return fragment;
@@ -88,7 +88,7 @@ public class CauseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCause = CauseLab.get(getActivity()).getCause(getArguments().getInt(ARG_CAUSE_ID));
+        mCause = CauseLab.get(getActivity()).getCause(getArguments().getString(ARG_CAUSE_ID));
 
         //init firebase database
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -97,8 +97,11 @@ public class CauseFragment extends Fragment {
 
     private void initUi() {
         if (mCause == null) {
-            this.onDestroy();
+            onDestroy();
+            return;
         }
+
+
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new CauseDoneAdapter(mCause.getmDones());
@@ -113,7 +116,7 @@ public class CauseFragment extends Fragment {
                     .error(R.drawable.circular_image_view_background)
                     .into(mImage);
 
-        if (mCause.getmDones().isEmpty()) {
+        if (mCause.getmDones() == null) {
             mRecyclerView.setVisibility(View.GONE);
             mNoDones.setVisibility(View.VISIBLE);
         }

@@ -44,9 +44,9 @@ public class CauseLab {
         mCauses.add(cause);
     }
 
-    public Cause getCause(int id) {
+    public Cause getCause(String id) {
         for (Cause item : mCauses) {
-            if (item.getId() == id) {
+            if (item.getId().equals(id)) {
                 return item;
             }
         }

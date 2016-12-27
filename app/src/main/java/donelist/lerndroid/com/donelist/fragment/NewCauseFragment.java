@@ -101,7 +101,7 @@ public class NewCauseFragment extends Fragment {
         Cause cause = new Cause();
         Calendar c = Calendar.getInstance();
 
-        cause.setmId(CauseLab.get(getActivity()).getCauses().size());
+        cause.setmId(String.valueOf(CauseLab.get(getActivity()).getCauses().size()));//TODO hot fix (String.valueOf)
         cause.setTitle(mNewCauseTitleEd.getText().toString());
         cause.setDescription(mNewCauseDescripptionEd.getText().toString());
         cause.setPhotoPath(null);//TODO make photo

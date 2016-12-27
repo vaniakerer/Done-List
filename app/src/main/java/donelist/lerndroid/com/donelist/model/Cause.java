@@ -9,14 +9,14 @@ import java.util.List;
  */
 
 public class Cause {
-    private int mId;
+    private String mId;//Key
     private String mTitle;
     private String mDescription;
     private String date;
     private String photoPath;
     private HashMap<String, CausesDone> mDones;
 
-    public Cause(int mId, String mTitle, String mDescription, String date, List<CausesDone> mDones) {
+    public Cause(String mId, String mTitle, String mDescription, String date, List<CausesDone> mDones) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mDescription = mDescription;
@@ -27,7 +27,7 @@ public class Cause {
     public Cause() {
     }
 
-    public int getId() {
+    public String getId() {
         return mId;
     }
 
@@ -65,9 +65,6 @@ public class Cause {
         this.photoPath = photoPath;
     }
 
-    public void setmId(int mId) {
-        this.mId = mId;
-    }
 
 
     public String getmTitle() {
@@ -86,11 +83,18 @@ public class Cause {
         this.mDescription = mDescription;
     }
 
-    public int getmId() {
+    public String getmId() {
         return mId;
     }
 
+    public void setmId(String mId) {
+        this.mId = mId;
+    }
+
     public List<CausesDone> getmDones() {
+        if (mDones == null){
+            return null;
+        }
         List<CausesDone> dones = new ArrayList<>(mDones.values());
         return dones;
     }

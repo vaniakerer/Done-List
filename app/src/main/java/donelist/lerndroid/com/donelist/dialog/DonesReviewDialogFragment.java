@@ -43,9 +43,9 @@ public class DonesReviewDialogFragment extends DialogFragment {
     }
 
 
-    public static DonesReviewDialogFragment newInstance(int id) {
+    public static DonesReviewDialogFragment newInstance(String id) {
         Bundle args = new Bundle();
-        args.putInt(ARG_CAUSE_ID, id);
+        args.putString(ARG_CAUSE_ID, id);
 
         DonesReviewDialogFragment dialog = new DonesReviewDialogFragment();
         dialog.setArguments(args);
@@ -53,7 +53,7 @@ public class DonesReviewDialogFragment extends DialogFragment {
     }
 
     private void initUi() {
-        int causeId = getArguments().getInt(ARG_CAUSE_ID);
+        String causeId = getArguments().getString(ARG_CAUSE_ID);
         mCause = CauseLab.get(getActivity()).getCause(causeId);
        // DoneAdapter adapter = new DoneAdapter(mCause.getDones());
 
