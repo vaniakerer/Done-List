@@ -145,14 +145,14 @@ public class CausesFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("causes").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("users").child("ivan").child("causes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Cause> causes = new ArrayList<Cause>();
+
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Cause cause = dataSnapshot1.getValue(Cause.class);
                     causes.add(cause);
-                    Log.d(TAG, cause.getDones().get(1).getmTitle());
                 }
 
                 CauseLab.get(getActivity()).setCauses(causes);
@@ -164,6 +164,7 @@ public class CausesFragment extends Fragment {
 
             }
         });
+
 
   /*      List<CausesDone> dones = new ArrayList<>();
         dones.add(new CausesDone(2, "done title", "done description", "20 October 2017"));

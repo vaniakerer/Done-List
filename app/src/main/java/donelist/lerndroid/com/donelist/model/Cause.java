@@ -1,5 +1,7 @@
 package donelist.lerndroid.com.donelist.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,14 +14,14 @@ public class Cause {
     private String mDescription;
     private String date;
     private String photoPath;
-    private List<CausesDone> mDones;
+    private HashMap<String, CausesDone> mDones;
 
     public Cause(int mId, String mTitle, String mDescription, String date, List<CausesDone> mDones) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mDescription = mDescription;
         this.date = date;
-        this.mDones = mDones;
+       // this.mDones = mDones;
     }
 
     public Cause() {
@@ -53,13 +55,7 @@ public class Cause {
         this.date = date;
     }
 
-    public List<CausesDone> getDones() {
-        return mDones;
-    }
 
-    public void setDones(List<CausesDone> mDones) {
-        this.mDones = mDones;
-    }
 
     public String getPhotoPath() {
         return photoPath;
@@ -73,9 +69,6 @@ public class Cause {
         this.mId = mId;
     }
 
-    public List<CausesDone> getmDones() {
-        return mDones;
-    }
 
     public String getmTitle() {
         return mTitle;
@@ -93,7 +86,16 @@ public class Cause {
         this.mDescription = mDescription;
     }
 
-    public void setmDones(List<CausesDone> mDones) {
+    public int getmId() {
+        return mId;
+    }
+
+    public List<CausesDone> getmDones() {
+        List<CausesDone> dones = new ArrayList<>(mDones.values());
+        return dones;
+    }
+
+    public void setmDones(HashMap<String, CausesDone> mDones) {
         this.mDones = mDones;
     }
 }

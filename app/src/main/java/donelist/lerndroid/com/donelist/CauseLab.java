@@ -40,7 +40,7 @@ public class CauseLab {
 
     public void addCause(Cause cause) {
         List<CausesDone> dones = new ArrayList<>();
-        cause.setDones(dones);
+       // cause.setDones(dones);
         mCauses.add(cause);
     }
 

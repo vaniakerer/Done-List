@@ -101,7 +101,7 @@ public class CauseFragment extends Fragment {
         }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new CauseDoneAdapter(mCause.getDones());
+        mAdapter = new CauseDoneAdapter(mCause.getmDones());
         mRecyclerView.setAdapter(mAdapter);
 
         mTitle.setText(mCause.getTitle());
@@ -113,7 +113,7 @@ public class CauseFragment extends Fragment {
                     .error(R.drawable.circular_image_view_background)
                     .into(mImage);
 
-        if (mCause.getDones().isEmpty()) {
+        if (mCause.getmDones().isEmpty()) {
             mRecyclerView.setVisibility(View.GONE);
             mNoDones.setVisibility(View.VISIBLE);
         }
@@ -145,7 +145,7 @@ public class CauseFragment extends Fragment {
                 mRecyclerView.setVisibility(View.VISIBLE);
 
                 //insert this done into firebase database
-                mDatabase.child("causes").child("2").child("mDones").child(String.valueOf(mCause.getDones().size())).setValue(done);
+            //    mDatabase.child("causes").child("2").child("mDones").child(String.valueOf(mCause.getDones().size())).setValue(done);
 
                 break;
         }

@@ -55,10 +55,10 @@ public class DonesReviewDialogFragment extends DialogFragment {
     private void initUi() {
         int causeId = getArguments().getInt(ARG_CAUSE_ID);
         mCause = CauseLab.get(getActivity()).getCause(causeId);
-        DoneAdapter adapter = new DoneAdapter(mCause.getDones());
+       // DoneAdapter adapter = new DoneAdapter(mCause.getDones());
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        mRecyclerView.setAdapter(adapter);
+      //  mRecyclerView.setAdapter(adapter);
     }
 
     public class DonesHolder extends RecyclerView.ViewHolder {
