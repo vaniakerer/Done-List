@@ -3,7 +3,9 @@ package donelist.lerndroid.com.donelist;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import donelist.lerndroid.com.donelist.model.Cause;
 import donelist.lerndroid.com.donelist.model.CausesDone;
@@ -15,7 +17,7 @@ import donelist.lerndroid.com.donelist.model.CausesDone;
 public class CauseLab {
 
     private static CauseLab sCauseLab;
-    private List<Cause> mCauses;
+    private Map<String, Cause> mCauses;
 
     private Context mContext;
 
@@ -26,34 +28,27 @@ public class CauseLab {
         return sCauseLab;
     }
 
-
-
     private CauseLab(Context context) {
         mContext = context;
-        mCauses = new ArrayList<>();
+        mCauses = new HashMap<>();
     }
 
     public List<Cause> getCauses() {
-
-        return mCauses;
+        List<Cause> causes = new ArrayList<>(mCauses.values());
+        return causes;
     }
 
     public void addCause(Cause cause) {
         List<CausesDone> dones = new ArrayList<>();
        // cause.setDones(dones);
-        mCauses.add(cause);
+        //mCauses.add(cause);
     }
 
-    public Cause getCause(String id) {
-        for (Cause item : mCauses) {
-            if (item.getId().equals(id)) {
-                return item;
-            }
-        }
-        return null;
+    public Cause getCause(String key) {
+        return mCauses.get(key);
     }
 
-    public void setCauses(List<Cause> causes){
+    public void setCauses(Map<String, Cause> causes){
         mCauses = causes;
     }
 

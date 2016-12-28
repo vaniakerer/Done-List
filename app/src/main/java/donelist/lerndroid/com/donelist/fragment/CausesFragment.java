@@ -34,8 +34,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -145,14 +146,16 @@ public class CausesFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("users").child("ivan").child("causes").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("users").child("vaniakerer8gmailcom").child("causes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Cause> causes = new ArrayList<Cause>();
+                Map<String, Cause> causes = new HashMap<String, Cause>();
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Cause cause = dataSnapshot1.getValue(Cause.class);
-                    causes.add(cause);
+                    cause.setmId(dataSnapshot1.getKey());
+                    String causeKey = dataSnapshot1.getKey();
+                    causes.put(causeKey, cause);
                 }
 
                 CauseLab.get(getActivity()).setCauses(causes);
@@ -164,19 +167,6 @@ public class CausesFragment extends Fragment {
 
             }
         });
-
-
-  /*      List<CausesDone> dones = new ArrayList<>();
-        dones.add(new CausesDone(2, "done title", "done description", "20 October 2017"));
-        dones.add(new CausesDone(2, "done title", "done description", "20 October 2017"));
-        dones.add(new CausesDone(2, "done title", "done description", "20 October 2017"));
-
-        Cause cause = new Cause(5, "Title", "Description", "20 Jali 2017", dones);
-
-        mDatabase.child("causes").child("3")
-                .setValue(cause);*/
-
-
     }
 
     public class CausesHolder extends RecyclerView.ViewHolder {

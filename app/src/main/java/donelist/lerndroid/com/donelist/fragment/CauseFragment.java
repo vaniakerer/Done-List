@@ -48,6 +48,8 @@ public class CauseFragment extends Fragment {
     private DatabaseReference mDatabase;
 
     private Cause mCause;
+    private String mCauseKey;
+
     private CauseDoneAdapter mAdapter;
 
     @BindView(R.id.cause_fragment_cause_title_tv)
@@ -88,7 +90,9 @@ public class CauseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCause = CauseLab.get(getActivity()).getCause(getArguments().getString(ARG_CAUSE_ID));
+        String causeKey = getArguments().getString(ARG_CAUSE_ID);
+        mCauseKey = causeKey;
+        mCause = CauseLab.get(getActivity()).getCause(mCauseKey);
 
         //init firebase database
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -100,8 +104,6 @@ public class CauseFragment extends Fragment {
             onDestroy();
             return;
         }
-
-
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new CauseDoneAdapter(mCause.getmDones());
@@ -124,7 +126,7 @@ public class CauseFragment extends Fragment {
 
     @OnClick(R.id.cause_fragment_new_done_fab)
     public void onFabClick() {
-        NewDoneDialog dialog = NewDoneDialog.newInstance();
+        NewDoneDialog dialog = NewDoneDialog.newInstance(mCauseKey);
         dialog.setTargetFragment(this, REQUEST_NEW_DONE);
         dialog.show(getActivity().getSupportFragmentManager(), "asfasf");
     }

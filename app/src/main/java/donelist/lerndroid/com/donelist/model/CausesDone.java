@@ -19,6 +19,12 @@ public class CausesDone {
         this.status = 0;
     }
 
+    public CausesDone(String mTitle, String mDoneDate, int status) {
+        this.mDoneDate = mDoneDate;
+        this.status = status;
+        this.mTitle = mTitle;
+    }
+
     public CausesDone() {
     }
 
