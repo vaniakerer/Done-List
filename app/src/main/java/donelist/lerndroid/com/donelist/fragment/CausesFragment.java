@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
@@ -67,6 +68,8 @@ public class CausesFragment extends Fragment {
 
     @BindView(R.id.cause_fragment_recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.causes_fragment_new_cause_fab)
+    FloatingActionButton mCreateCauseFab;
 
 
     public static CausesFragment newInstance() {
@@ -117,6 +120,12 @@ public class CausesFragment extends Fragment {
             startActivity(LoginActivity.getIntent(getActivity()));
             getActivity().finish();
         }
+    }
+
+
+    @OnClick(R.id.causes_fragment_new_cause_fab)
+    public void onFabClick() {
+        startActivity(new Intent(getActivity(), NewCauseActivity.class));
     }
 
     @Override
@@ -212,7 +221,8 @@ public class CausesFragment extends Fragment {
                     new Pair<View, String>(v.findViewById(R.id.card_item_cause_description_tv),
                             getString(R.string.transition_name_description)),
                     new Pair<View, String>(v.findViewById(R.id.card_item_cause_date_tv),
-                            getString(R.string.transition_name_date))
+                            getString(R.string.transition_name_date)),
+                    new Pair<View, String>(mCreateCauseFab, getString(R.string.transition_name_fab))
             );
 
             ActivityCompat.startActivity(getActivity(), intent, options.toBundle());

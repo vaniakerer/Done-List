@@ -2,18 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dialog_padding"
+    android:paddingRight="@dimen/dialog_padding"
+    android:paddingLeft="@dimen/dialog_padding">
 
-    <EditText
-        android:id="@+id/new_done_title_tv"
-        style="@style/MyEditTextStyle"
+    <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/title" />
+        android:text="@string/create_new_done"
+        android:textSize="@dimen/dialog_titile_text_size"
+        android:textColor="@color/card_view_title_text_color"
+        android:layout_marginBottom="@dimen/dialog_title_bottom_margin"/>
 
-    <Button
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <donelist.lerndroid.com.donelist.custom_views.AvenirBookEditText
+            android:id="@+id/new_done_title_tv"
+            style="@style/MyEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <donelist.lerndroid.com.donelist.custom_views.AvenirBookButton
         android:id="@+id/new_done_date_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:background="@color/colorAccent"/>
 
 </LinearLayout>

@@ -6,11 +6,15 @@
     <dimen name="card_view_top_padding">24dp</dimen>
     <dimen name="card_view_bottom_padding">16dp</dimen>
     <dimen name="card_view_left_right_padding">20dp</dimen>
-    <dimen name="card_view_title_text_size">15dp</dimen>
+    <dimen name="card_view_title_text_size">18dp</dimen>
     <dimen name="views_8dp_dimen">22dp</dimen>
-    <dimen name="secondary_text_size">12sp</dimen>
+    <dimen name="secondary_text_size">13dp</dimen>
     <dimen name="window_padding">20dp</dimen>
     <dimen name="sign_in_button_size">15dp</dimen>
     <dimen name="have_no_acc_top_margin">22dp</dimen>
     <dimen name="sign_in_button_top_margin">30dp</dimen>
+    <dimen name="dialog_padding">24dp</dimen>
+    <dimen name="dialog_title_bottom_margin">20dp</dimen>
+    <dimen name="dialog_titile_text_size">16dp</dimen>
+    <dimen name="done_title_text_size">16dp</dimen>
 </resources>

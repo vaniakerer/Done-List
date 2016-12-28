@@ -38,4 +38,6 @@
     <string name="transition_name_title">transition:TITLE</string>
     <string name="transition_name_description">transition:DESCRIPTION</string>
     <string name="transition_name_date">transition:DATE</string>
+    <string name="transition_name_fab">transition:FAB</string>
+    <string name="create_new_done">Create new Done</string>
 </resources>

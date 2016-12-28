@@ -12,13 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -64,8 +62,6 @@ public class CauseFragment extends Fragment {
     FloatingActionButton mAddDoneFab;
     @BindView(R.id.cause_fragment_cause_image)
     ImageView mImage;
-    @BindView(R.id.cause_fragment_make_photo_button)
-    ImageButton mMakePhotoButton;
     @BindView(R.id.cause_fragment_recycler_view)
     RecyclerView mRecyclerView;
 
@@ -113,11 +109,10 @@ public class CauseFragment extends Fragment {
         mDescription.setText(mCause.getDescription());
         mDate.setText(mCause.getDate());
 
-            Picasso.with(getActivity())
+            /*Picasso.with(getActivity())
                     .load("https://www.simplifiedcoding.net/wp-content/uploads/2015/10/advertise.png")
                     .error(R.drawable.circular_image_view_background)
-                    .into(mImage);
-
+                    .into(mImage);*/
         if (mCause.getmDones() == null) {
             mRecyclerView.setVisibility(View.GONE);
             mNoDones.setVisibility(View.VISIBLE);
@@ -128,6 +123,7 @@ public class CauseFragment extends Fragment {
     public void onFabClick() {
         NewDoneDialog dialog = NewDoneDialog.newInstance(mCauseKey);
         dialog.setTargetFragment(this, REQUEST_NEW_DONE);
+
         dialog.show(getActivity().getSupportFragmentManager(), "asfasf");
     }
 

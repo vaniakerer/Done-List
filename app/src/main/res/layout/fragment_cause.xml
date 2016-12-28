@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/cause_fragment_new_done_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_toolbar_add_cause"
+        android:transitionName="@string/transition_name_fab"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,17 +23,16 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background"
-         >
+            android:background="@color/background">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingBottom="@dimen/card_view_bottom_padding"
                 android:paddingLeft="@dimen/card_view_left_right_padding"
                 android:paddingRight="@dimen/card_view_left_right_padding"
-                android:paddingTop="@dimen/card_view_top_padding"
-                android:paddingBottom="@dimen/card_view_bottom_padding">
+                android:paddingTop="@dimen/card_view_top_padding">
 
                 <LinearLayout
                     android:layout_width="70dp"
@@ -33,14 +43,8 @@
                         android:id="@+id/cause_fragment_cause_image"
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
-                        android:background="@color/colorPrimaryDark"
-                        />
+                        android:background="@drawable/circular_image_view_background"/>
 
-                    <ImageButton
-                        android:id="@+id/cause_fragment_make_photo_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_cause_photo" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -56,8 +60,7 @@
                         android:textColor="@color/card_view_title_text_color"
                         android:textSize="@dimen/card_view_title_text_size"
 
-                        android:transitionName="@string/transition_name_title"
-                        />
+                        android:transitionName="@string/transition_name_title" />
 
                     <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
                         android:id="@+id/cause_fragment_cause_description_tv"
@@ -66,8 +69,7 @@
                         android:text="afasfagasfasfkasjfajsfas;'ksas;kjaf;asfj;asjf;asjf;asjf;asfjas;lfjas;fjas;jfas;fjas;jfas;jfa;sjf;asjf;asjf;asj;fasjf;jas;fjlas;fjas;jfas;fjas;fjas;fjas;fja;sjfas;jfas;fja;sfjas;jfas;jfas;fjl"
                         android:textColor="@color/colorSecondaryText"
                         android:textSize="@dimen/secondary_text_size"
-                        android:transitionName="@string/transition_name_description"
-                        />
+                        android:transitionName="@string/transition_name_description" />
 
                     <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
                         android:id="@+id/cause_fragment_cause_date_tv"
@@ -77,8 +79,7 @@
                         android:text="20 Juli 2016"
                         android:textColor="@color/colorSecondaryText"
                         android:textSize="@dimen/secondary_text_size"
-                        android:transitionName="@string/transition_name_date"
-                        />
+                        android:transitionName="@string/transition_name_date" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -107,13 +108,5 @@
             android:visibility="gone" />
 
     </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/cause_fragment_new_done_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_toolbar_add_cause" />
 
 </android.support.design.widget.CoordinatorLayout>

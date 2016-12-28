@@ -69,6 +69,7 @@ public class NewDoneDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_fragment_new_done, null);
         ButterKnife.bind(this, view);
 
@@ -82,13 +83,13 @@ public class NewDoneDialog extends DialogFragment {
 
         return new AlertDialog.Builder(getActivity())
                 .setView(view)
-                .setTitle(R.string.new_done)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (mTitle.getText().toString().length() == 0){
                             Toast.makeText(getActivity(), R.string.must_be_filled, Toast.LENGTH_SHORT)
                                     .show();
+                            mTitle.setError(getString(R.string.fielt_cannot_be_empty));
                         }else {
                             sendResult(Activity.RESULT_OK);
                         }
@@ -106,7 +107,7 @@ public class NewDoneDialog extends DialogFragment {
     private void updateDateButton(Date newDate){
         date = newDate;
 
-        String dateFormat = "EEE, MMM dd yyyy";
+        String dateFormat = "MMM, dd yyyy";
         mDate.setText(DateFormat.format(dateFormat, date));
     }
 
