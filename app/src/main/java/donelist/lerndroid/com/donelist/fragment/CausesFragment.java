@@ -216,17 +216,17 @@ public class CausesFragment extends Fragment {
 
             ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
 
-                    new Pair<View, String>(v.findViewById(R.id.card_item_cause_title_tv),
+                    /*new Pair<View, String>(v.findViewById(R.id.card_item_cause_title_tv),
                             getString(R.string.transition_name_title)),
                     new Pair<View, String>(v.findViewById(R.id.card_item_cause_description_tv),
                             getString(R.string.transition_name_description)),
                     new Pair<View, String>(v.findViewById(R.id.card_item_cause_date_tv),
-                            getString(R.string.transition_name_date)),
+                            getString(R.string.transition_name_date)),*/
                     new Pair<View, String>(mCreateCauseFab, getString(R.string.transition_name_fab))
             );
 
             ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
-
+            
             /*startActivity(intent);*/
         }
 
