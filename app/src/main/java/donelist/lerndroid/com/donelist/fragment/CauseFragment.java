@@ -102,6 +102,7 @@ public class CauseFragment extends Fragment {
         }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        List<CausesDone> dones = mCause.getmDones();
         mAdapter = new CauseDoneAdapter(mCause.getmDones());
         mRecyclerView.setAdapter(mAdapter);
 
@@ -182,7 +183,7 @@ public class CauseFragment extends Fragment {
         private List<CausesDone> mCausesDones;
 
         public CauseDoneAdapter(List<CausesDone> causesDones) {
-            if (mCausesDones != null) {
+            if (causesDones != null) {
                 mCausesDones = causesDones;
             } else {
                 mCausesDones = new ArrayList<>();
