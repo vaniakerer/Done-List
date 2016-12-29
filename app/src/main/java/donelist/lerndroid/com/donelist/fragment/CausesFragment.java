@@ -44,6 +44,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import donelist.lerndroid.com.donelist.CauseActivity;
 import donelist.lerndroid.com.donelist.CauseLab;
+import donelist.lerndroid.com.donelist.FirebaseDatabaseReferences;
 import donelist.lerndroid.com.donelist.LoginActivity;
 import donelist.lerndroid.com.donelist.NewCauseActivity;
 import donelist.lerndroid.com.donelist.R;
@@ -156,7 +157,10 @@ public class CausesFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("users").child(mUser.getUid()).child("causes").addValueEventListener(new ValueEventListener() {
+        mDatabase
+                .child(FirebaseDatabaseReferences.USERS)
+                .child(mUser.getUid()).child(FirebaseDatabaseReferences.CAUSES)
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Cause> causes = new HashMap<String, Cause>();

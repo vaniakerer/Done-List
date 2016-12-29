@@ -41,4 +41,5 @@
     <string name="transition_name_fab">transition:FAB</string>
     <string name="create_new_done">Create new Done</string>
     <string name="input_cause_details">Input Cause details</string>
+    <string name="you_are_not_authorized">You are not authorized</string>
 </resources>

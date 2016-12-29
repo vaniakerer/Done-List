@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -34,7 +37,7 @@ import donelist.lerndroid.com.donelist.R;
 import donelist.lerndroid.com.donelist.model.CausesDone;
 
 /**
- * Created by ivan on 03.12.16.
+ *
  */
 
 public class NewDoneDialog extends DialogFragment {
@@ -56,6 +59,8 @@ public class NewDoneDialog extends DialogFragment {
     private Date date;
     private String mCauseId;
 
+    private FirebaseUser mUser;
+
     public static NewDoneDialog newInstance(String causeKey){
         Bundle args = new Bundle();
         args.putString(ARG_CAUSE_ID, causeKey);
@@ -66,10 +71,20 @@ public class NewDoneDialog extends DialogFragment {
         return dialog;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (mUser == null){
+            Toast.makeText(getActivity(), R.string.you_are_not_authorized, Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_fragment_new_done, null);
         ButterKnife.bind(this, view);
 
@@ -145,7 +160,7 @@ public class NewDoneDialog extends DialogFragment {
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference()
                 .child(FirebaseDatabaseReferences.USERS)
-                .child("vaniakerer8gmailcom")
+                .child(mUser.getUid())
                 .child(FirebaseDatabaseReferences.CAUSES)
                 .child(mCauseId)
                 .child(FirebaseDatabaseReferences.DONES);

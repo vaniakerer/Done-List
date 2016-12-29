@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
@@ -25,6 +33,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import donelist.lerndroid.com.donelist.CauseActivity;
 import donelist.lerndroid.com.donelist.CauseLab;
+import donelist.lerndroid.com.donelist.FirebaseDatabaseReferences;
 import donelist.lerndroid.com.donelist.R;
 import donelist.lerndroid.com.donelist.model.Cause;
 
@@ -45,6 +54,9 @@ public class NewCauseFragment extends Fragment {
     private File mPhotoFile;
     private Uri mPhotoUri;
 
+    private DatabaseReference mDatabase;
+    private FirebaseUser mUser;
+
     @BindView(R.id.new_cause_title_ed)
     EditText mNewCauseTitleEd;
     @BindView(R.id.new_cause_description_ed)
@@ -56,6 +68,19 @@ public class NewCauseFragment extends Fragment {
 
     public static NewCauseFragment newInstance() {
         return new NewCauseFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (mUser == null) {
+            Toast.makeText(getActivity(), getString(R.string.you_are_not_authorized), Toast.LENGTH_SHORT)
+                    .show();
+            onDestroy();
+        }
     }
 
     @Nullable
@@ -86,14 +111,33 @@ public class NewCauseFragment extends Fragment {
             Toast.makeText(getActivity(), R.string.must_be_filled, Toast.LENGTH_SHORT)
                     .show();
         } else {
-            CauseLab causeLab = CauseLab.get(getActivity());
-            causeLab.addCause(bindCause());
 
-            Intent intent = new Intent(getActivity(), CauseActivity.class);
-            intent.putExtra(EXTRA_CAUSE_ID, causeLab.getCauses().size() - 1);
-            startActivity(intent);
+            mDatabase
+                    .child(FirebaseDatabaseReferences.USERS)
+                    .child(mUser.getUid())
+                    .child(FirebaseDatabaseReferences.CAUSES)
+                    .push()
+                    .setValue(bindCause())
+                    .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                CauseLab causeLab = CauseLab.get(getActivity());
+                                causeLab.addCause(bindCause());
 
-            getActivity().finish();
+                                Intent intent = new Intent(getActivity(), CauseActivity.class);
+                                intent.putExtra(EXTRA_CAUSE_ID, causeLab.getCauses().size() - 1);
+                                startActivity(intent);
+
+                            } else {
+                              Toast.makeText(getActivity(), R.string.something_goes_wrong, Toast.LENGTH_SHORT)
+                                      .show();
+                            }
+                            getActivity().finish();
+                        }
+                    });
+
+
         }
     }
 
@@ -107,7 +151,7 @@ public class NewCauseFragment extends Fragment {
         cause.setPhotoPath(null);//TODO make photo
         cause.setDate(c.getTime().toString());
 
-        if (mPhotoUri != null){
+        if (mPhotoUri != null) {
             cause.setPhotoPath(mPhotoUri.getPath());
         }
         return cause;

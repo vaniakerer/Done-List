@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -146,7 +147,7 @@ public class CauseFragment extends Fragment {
                 mRecyclerView.setVisibility(View.VISIBLE);
 
                 //insert this done into firebase database
-            //    mDatabase.child("causes").child("2").child("mDones").child(String.valueOf(mCause.getDones().size())).setValue(done);
+                //    mDatabase.child("causes").child("2").child("mDones").child(String.valueOf(mCause.getDones().size())).setValue(done);
 
                 break;
         }
@@ -181,7 +182,11 @@ public class CauseFragment extends Fragment {
         private List<CausesDone> mCausesDones;
 
         public CauseDoneAdapter(List<CausesDone> causesDones) {
-            mCausesDones = causesDones;
+            if (mCausesDones != null) {
+                mCausesDones = causesDones;
+            } else {
+                mCausesDones = new ArrayList<>();
+            }
         }
 
         @Override
