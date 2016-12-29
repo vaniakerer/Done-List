@@ -9,7 +9,11 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +27,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
@@ -47,11 +51,10 @@ public class NewCauseFragment extends Fragment {
 
     private static final int REQUEST_MAKE_PHOTO = 0;
 
-    private static final String PHOTO_URI = "photoUri";
-
     private static final String EXTRA_CAUSE_ID = "donelist.lerndriod.com.donelist.cause_id";
 
-    private File mPhotoFile;
+    private static final String PHOTO_URI = "photoUri";
+
     private Uri mPhotoUri;
 
     private DatabaseReference mDatabase;
@@ -65,6 +68,8 @@ public class NewCauseFragment extends Fragment {
     ImageView mNewCausePhotoImg;
     @BindView(R.id.new_cause_edit_image_fab)
     FloatingActionButton mSubmitCauseFab;
+    @BindView(R.id.fragment_new_cause_progress)
+    ProgressWheel mProgress;
 
     public static NewCauseFragment newInstance() {
         return new NewCauseFragment();
@@ -112,6 +117,7 @@ public class NewCauseFragment extends Fragment {
                     .show();
         } else {
 
+            mProgress.setVisibility(View.VISIBLE);
 
             final String key = mDatabase
                     .child(FirebaseDatabaseReferences.USERS)
@@ -140,15 +146,11 @@ public class NewCauseFragment extends Fragment {
                                 Intent intent = new Intent(getActivity(), CauseActivity.class);
                                 intent.putExtra(EXTRA_CAUSE_ID, key);
 
-                                startActivity(intent);
 
-                               /* ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
-
-
+                                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
                                         new Pair<View, String>(mSubmitCauseFab, getString(R.string.transition_name_fab))
                                 );
-
-                                ActivityCompat.startActivity(getActivity(), intent, options.toBundle());*/
+                                ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
 
                             } else {
                                 Toast.makeText(getActivity(), R.string.something_goes_wrong, Toast.LENGTH_SHORT)
@@ -156,19 +158,19 @@ public class NewCauseFragment extends Fragment {
                             }
                         }
                     });
-
         }
     }
 
     private Cause bindCause(String key) {
         Cause cause = new Cause();
         Calendar c = Calendar.getInstance();
+        String dateFormat = "MMM, dd yyyy";
 
-        cause.setmId(key);//TODO hot fix (String.valueOf)
+        cause.setmId(key);
         cause.setTitle(mNewCauseTitleEd.getText().toString());
         cause.setDescription(mNewCauseDescripptionEd.getText().toString());
         cause.setPhotoPath(null);//TODO make photo
-        cause.setDate(c.getTime().toString());
+        cause.setDate(DateFormat.format(dateFormat, c.getTime()).toString());
 
         if (mPhotoUri != null) {
             cause.setPhotoPath(mPhotoUri.getPath());

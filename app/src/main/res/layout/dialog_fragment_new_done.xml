@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/dialog_padding"
+    android:paddingLeft="@dimen/dialog_padding"
     android:paddingRight="@dimen/dialog_padding"
-    android:paddingLeft="@dimen/dialog_padding">
+    android:paddingTop="@dimen/dialog_padding">
 
-    <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/create_new_done"
-        android:textSize="@dimen/dialog_titile_text_size"
-        android:textColor="@color/card_view_title_text_color"
-        android:layout_marginBottom="@dimen/dialog_title_bottom_margin"/>
+        android:orientation="horizontal">
+
+        <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dialog_title_bottom_margin"
+            android:text="@string/create_new_done"
+            android:textColor="@color/card_view_title_text_color"
+            android:textSize="@dimen/dialog_titile_text_size"
+            android:layout_centerVertical="true"
+            />
+
+        <com.pnikosis.materialishprogress.ProgressWheel
+            android:id="@+id/dialog_new_done_progress"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:matProg_barColor="@color/colorAccent"
+            app:matProg_progressIndeterminate="true"
+            app:matProg_rimColor="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"/>
+    </RelativeLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -32,7 +52,7 @@
         android:id="@+id/new_done_date_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:background="@color/colorAccent"/>
+        android:background="@color/colorAccent"
+        android:textColor="@color/white" />
 
 </LinearLayout>

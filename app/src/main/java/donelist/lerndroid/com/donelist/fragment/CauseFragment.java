@@ -118,16 +118,6 @@ public class CauseFragment extends Fragment {
             mNoDones.setVisibility(View.VISIBLE);
         }
 
-
-        mAddDoneFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NewDoneDialog dialog = NewDoneDialog.newInstance(mCauseKey);
-                dialog.setTargetFragment(getTargetFragment(), REQUEST_NEW_DONE);
-
-                dialog.show(getActivity().getSupportFragmentManager(), "asfasf");
-            }
-        });
     }
 
     @OnClick(R.id.cause_fragment_new_done_fab)

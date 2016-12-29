@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -55,6 +56,8 @@ public class NewDoneDialog extends DialogFragment {
     TextView mTitle;
     @BindView(R.id.new_done_date_btn)
     Button mDate;
+    @BindView(R.id.dialog_new_done_progress)
+    ProgressWheel mProgress;
 
     private Date date;
     private String mCauseId;
@@ -153,6 +156,8 @@ public class NewDoneDialog extends DialogFragment {
         if (getTargetFragment() == null || !isNetworkAvailable()){
             return;
         }
+
+        mProgress.setVisibility(View.VISIBLE);
         //TODO Progressbar
         String title = mTitle.getText().toString();
         String date = mDate.getText().toString();
