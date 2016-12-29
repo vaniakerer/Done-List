@@ -80,7 +80,19 @@ public class CausesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_causes, container, false);
         ButterKnife.bind(this, v);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) {
+                    mCreateCauseFab.hide();
+                } else if (dy < 0) {
+                    mCreateCauseFab.show();
+                }
+            }
+        });
+
         updateUi();
         init();
         Log.d(TAG, mUser.getUid());
@@ -136,27 +148,27 @@ public class CausesFragment extends Fragment {
                 .child(FirebaseDatabaseReferences.USERS)
                 .child(mUser.getUid()).child(FirebaseDatabaseReferences.CAUSES)
                 .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Cause> causes = new HashMap<String, Cause>();
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Map<String, Cause> causes = new HashMap<String, Cause>();
 
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    Cause cause = dataSnapshot1.getValue(Cause.class);
-                    cause.setmId(dataSnapshot1.getKey());
-                    String causeKey = dataSnapshot1.getKey();
-                    causes.put(causeKey, cause);
-                }
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                            Cause cause = dataSnapshot1.getValue(Cause.class);
+                            cause.setmId(dataSnapshot1.getKey());
+                            String causeKey = dataSnapshot1.getKey();
+                            causes.put(causeKey, cause);
+                        }
 
-                CauseLab.get(getActivity()).setCauses(causes);
-                updateUi();
-                mProgress.setVisibility(View.GONE);
-            }
+                        CauseLab.get(getActivity()).setCauses(causes);
+                        updateUi();
+                        mProgress.setVisibility(View.GONE);
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
     }
 
     public class CausesHolder extends RecyclerView.ViewHolder {

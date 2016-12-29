@@ -102,6 +102,17 @@ public class CauseFragment extends Fragment {
         }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) {
+                    mAddDoneFab.hide();
+                } else if (dy < 0) {
+                    mAddDoneFab.show();
+                }
+            }
+        });
+
         List<CausesDone> dones = mCause.getmDones();
         mAdapter = new CauseDoneAdapter(mCause.getmDones());
         mRecyclerView.setAdapter(mAdapter);
