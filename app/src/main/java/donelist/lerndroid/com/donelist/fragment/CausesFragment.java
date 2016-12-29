@@ -84,6 +84,7 @@ public class CausesFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUi();
         init();
+        Log.d(TAG, mUser.getUid());
 
         return v;
     }
@@ -155,7 +156,7 @@ public class CausesFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("users").child("vaniakerer8gmailcom").child("causes").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("users").child(mUser.getUid()).child("causes").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Cause> causes = new HashMap<String, Cause>();
@@ -226,7 +227,6 @@ public class CausesFragment extends Fragment {
             );
 
             ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
-            
             /*startActivity(intent);*/
         }
 
