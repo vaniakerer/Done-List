@@ -93,7 +93,6 @@ public class CauseFragment extends Fragment {
 
         //init firebase database
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
     }
 
     private void initUi() {
@@ -118,6 +117,17 @@ public class CauseFragment extends Fragment {
             mRecyclerView.setVisibility(View.GONE);
             mNoDones.setVisibility(View.VISIBLE);
         }
+
+
+        mAddDoneFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewDoneDialog dialog = NewDoneDialog.newInstance(mCauseKey);
+                dialog.setTargetFragment(getTargetFragment(), REQUEST_NEW_DONE);
+
+                dialog.show(getActivity().getSupportFragmentManager(), "asfasf");
+            }
+        });
     }
 
     @OnClick(R.id.cause_fragment_new_done_fab)

@@ -112,40 +112,59 @@ public class NewCauseFragment extends Fragment {
                     .show();
         } else {
 
-            mDatabase
+
+            final String key = mDatabase
                     .child(FirebaseDatabaseReferences.USERS)
                     .child(mUser.getUid())
                     .child(FirebaseDatabaseReferences.CAUSES)
                     .push()
-                    .setValue(bindCause())
+                    .getKey();
+
+            final Cause cause = bindCause(key);
+
+            mDatabase
+                    .child(FirebaseDatabaseReferences.USERS)
+                    .child(mUser.getUid())
+                    .child(FirebaseDatabaseReferences.CAUSES)
+                    .child(key)
+                    .setValue(cause)
                     .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 CauseLab causeLab = CauseLab.get(getActivity());
-                                causeLab.addCause(bindCause());
+                                causeLab.addCause(cause);
+
+                                getActivity().finish();
 
                                 Intent intent = new Intent(getActivity(), CauseActivity.class);
-                                intent.putExtra(EXTRA_CAUSE_ID, causeLab.getCauses().size() - 1);
+                                intent.putExtra(EXTRA_CAUSE_ID, key);
+
                                 startActivity(intent);
 
+                               /* ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+
+
+                                        new Pair<View, String>(mSubmitCauseFab, getString(R.string.transition_name_fab))
+                                );
+
+                                ActivityCompat.startActivity(getActivity(), intent, options.toBundle());*/
+
                             } else {
-                              Toast.makeText(getActivity(), R.string.something_goes_wrong, Toast.LENGTH_SHORT)
-                                      .show();
+                                Toast.makeText(getActivity(), R.string.something_goes_wrong, Toast.LENGTH_SHORT)
+                                        .show();
                             }
-                            getActivity().finish();
                         }
                     });
-
 
         }
     }
 
-    private Cause bindCause() {
+    private Cause bindCause(String key) {
         Cause cause = new Cause();
         Calendar c = Calendar.getInstance();
 
-        cause.setmId(String.valueOf(CauseLab.get(getActivity()).getCauses().size()));//TODO hot fix (String.valueOf)
+        cause.setmId(key);//TODO hot fix (String.valueOf)
         cause.setTitle(mNewCauseTitleEd.getText().toString());
         cause.setDescription(mNewCauseDescripptionEd.getText().toString());
         cause.setPhotoPath(null);//TODO make photo
