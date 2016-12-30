@@ -112,6 +112,7 @@ public class LoginFragment extends Fragment implements GoogleApiClient.OnConnect
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     startActivity(new Intent(getActivity(), CausesActivity.class));
+                    getActivity().finish();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
@@ -193,6 +194,7 @@ public class LoginFragment extends Fragment implements GoogleApiClient.OnConnect
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     startActivity(new Intent(getActivity(), CausesActivity.class));
+                                    getActivity().finish();
                                 } else {
                                     Log.d(TAG, String.valueOf(task.getException()));
                                     showLogo();

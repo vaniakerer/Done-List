@@ -311,6 +311,14 @@ public class CauseFragment extends Fragment {
         }
 
         public void setDones(List<CausesDone> dones) {
+            if (!dones.isEmpty()){
+                mRecyclerView.setVisibility(View.VISIBLE);
+                mNoDones.setVisibility(View.GONE);
+            }else {
+                mRecyclerView.setVisibility(View.GONE);
+                mNoDones.setVisibility(View.VISIBLE);
+            }
+
             mCausesDones = dones;
             notifyDataSetChanged();
         }
