@@ -10,6 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -50,7 +53,8 @@ public class CauseFragment extends Fragment {
 
     private static final int REQUEST_NEW_DONE = 1;
 
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDonesReference;
+    private DatabaseReference mCausesReference;
 
     private Cause mCause;
     private String mCauseKey;
@@ -87,16 +91,20 @@ public class CauseFragment extends Fragment {
         mCauseKey = causeKey;
         mCause = CauseLab.get(getActivity()).getCause(mCauseKey);
 
+        setHasOptionsMenu(true);
+
         //init firebase database
-        mDatabase = FirebaseDatabase.getInstance()
+        mCausesReference = FirebaseDatabase.getInstance()
                 .getReference()
                 .child(FirebaseDatabaseReferences.USERS)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child(FirebaseDatabaseReferences.CAUSES)
-                .child(mCauseKey)
+                .child(mCauseKey);
+
+        mDonesReference = mCausesReference
                 .child(FirebaseDatabaseReferences.DONES);
 
-        mDatabase
+        mDonesReference
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -197,7 +205,7 @@ public class CauseFragment extends Fragment {
         public boolean onDoneItemLongClick() {
             new AlertDialog.Builder(getActivity())
                     .setTitle(R.string.delete_cause)
-                    .setMessage(R.string.are_you_sure_cause)
+                    .setMessage(R.string.are_you_sure_done)
                     .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -216,11 +224,55 @@ public class CauseFragment extends Fragment {
         }
     }
 
-    private void deleteDone(String key){
-        mDatabase
+    /**
+     * removing causes done by key
+     * @param key - dones identity key in database
+     */
+    private void deleteDone(String key) {
+        mDonesReference
                 .child(key)
                 .removeValue();
+    }
 
+    /**
+     * removing current cause
+     */
+    private void deleteCause(){
+        mCausesReference.removeValue();
+        getActivity().finish();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.detail_cause_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.detail_cause_menu_delete_cause:
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.delete_cause)
+                        .setMessage(R.string.are_you_sure_cause)
+                        .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteCause();
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public class CauseDoneAdapter extends RecyclerView.Adapter<CauseDonesViewHolder> {

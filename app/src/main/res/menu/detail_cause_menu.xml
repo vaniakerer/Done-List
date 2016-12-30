@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/detail_cause_menu_delete_cause"
+        android:title="@string/delete_cause"/>
+
+</menu>
