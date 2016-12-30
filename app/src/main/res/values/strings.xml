@@ -45,4 +45,8 @@
     <string name="input_cause_details">Input Cause details</string>
     <string name="you_are_not_authorized">You are not authorized</string>
     <string name="no_dones_yet">No dones yet</string>
+    <string name="delete_cause">Delete cause</string>
+    <string name="are_you_sure_cause">\t\tAre you sure you want to delete this cause?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
 </resources>

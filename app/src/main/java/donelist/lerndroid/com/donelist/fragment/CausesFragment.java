@@ -1,5 +1,6 @@
 package donelist.lerndroid.com.donelist.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.util.Pair;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,6 +40,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import donelist.lerndroid.com.donelist.CauseActivity;
 import donelist.lerndroid.com.donelist.CauseLab;
 import donelist.lerndroid.com.donelist.FirebaseDatabaseReferences;
@@ -232,6 +235,28 @@ public class CausesFragment extends Fragment {
             /*startActivity(intent);*/
         }
 
+        @OnLongClick(R.id.card_item_cause_cardview)
+        public boolean onCardLongClick(){
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.delete_cause)
+                    .setMessage(R.string.are_you_sure_cause)
+                    .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            deleteCause(mCause.getmId());
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+            return true;
+        }
+
         @OnClick(R.id.card_item_cause_preview_tv)
         public void onPreviewClick() {
             DonesReviewDialogFragment reviewDialog = DonesReviewDialogFragment.newInstance(mCause.getId());
@@ -260,6 +285,14 @@ public class CausesFragment extends Fragment {
 
             return result;
         }
+    }
+
+    private void deleteCause(String key){
+        mDatabase.child(FirebaseDatabaseReferences.USERS)
+                .child(mUser.getUid())
+                .child(FirebaseDatabaseReferences.CAUSES)
+                .child(key)
+                .removeValue();
     }
 
     public class CauseAdapter extends RecyclerView.Adapter<CausesHolder> {
