@@ -46,6 +46,7 @@ import donelist.lerndroid.com.donelist.NewCauseActivity;
 import donelist.lerndroid.com.donelist.R;
 import donelist.lerndroid.com.donelist.dialog.DonesReviewDialogFragment;
 import donelist.lerndroid.com.donelist.model.Cause;
+import donelist.lerndroid.com.donelist.model.CausesDone;
 
 /**
  * Created by ivan on 28.11.16.
@@ -241,7 +242,7 @@ public class CausesFragment extends Fragment {
         public void share() {
             Intent i = ShareCompat.IntentBuilder.from(getActivity())
                     .setType("text/plain")
-                    .setText(getCauseForShare())
+                    .setText(getCauseForShare(mCause.getmDones()))
                     .setSubject(getString(R.string.send_cause))
                     .setChooserTitle(getString(R.string.send_report))
                     .createChooserIntent();
@@ -249,10 +250,15 @@ public class CausesFragment extends Fragment {
             startActivity(i);
         }
 
-        private String getCauseForShare() {
-            String dateString = mCause.getDate();
+        private String getCauseForShare(List<CausesDone> dones) {
 
-            return mCause.getTitle() + ":" + mCause.getDescription() + "\n" + dateString;
+            String result = "Title: " + mCause.getTitle() + ". \nDescription: " + mCause.getDescription() + ".\n Date: " + mCause.getDate() + "\n" + "My dones";
+
+            for (CausesDone done : dones){
+                result += "- " + done.getmTitle() + "; \n";
+            }
+
+            return result;
         }
     }
 
