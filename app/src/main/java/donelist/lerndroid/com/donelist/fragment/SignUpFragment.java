@@ -73,7 +73,7 @@ public class SignUpFragment extends Fragment {
         View.OnClickListener exitListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
+                getActivity().onBackPressed();
             }
         };
 

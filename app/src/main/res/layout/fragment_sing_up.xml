@@ -31,7 +31,8 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/times_logo" />
+            android:src="@drawable/times_logo"
+            android:transitionName="@string/transition_name_image"/>
 
         <com.pnikosis.materialishprogress.ProgressWheel
             android:id="@+id/fragment_sign_in_progress"

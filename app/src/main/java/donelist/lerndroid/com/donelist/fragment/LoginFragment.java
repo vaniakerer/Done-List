@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -153,7 +156,21 @@ public class LoginFragment extends Fragment implements GoogleApiClient.OnConnect
         mSignUpTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(SignUpActivity.getIntent(getActivity()));
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(),
+
+                    /*new Pair<View, String>(v.findViewById(R.id.card_item_cause_title_tv),
+                            getString(R.string.transition_name_title)),
+                    new Pair<View, String>(v.findViewById(R.id.card_item_cause_description_tv),
+                            getString(R.string.transition_name_description)),
+                    new Pair<View, String>(v.findViewById(R.id.card_item_cause_date_tv),
+                            getString(R.string.transition_name_date)),*/
+                        new Pair<View, String>(mLogoImg, getString(R.string.transition_name_image))
+                );
+
+                ActivityCompat.startActivity(getActivity(), SignUpActivity.getIntent(getActivity()), options.toBundle());
+
+
             }
         });
 
