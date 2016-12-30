@@ -42,7 +42,6 @@ public class DonesReviewDialogFragment extends DialogFragment {
         return v;
     }
 
-
     public static DonesReviewDialogFragment newInstance(String id) {
         Bundle args = new Bundle();
         args.putString(ARG_CAUSE_ID, id);
@@ -55,20 +54,16 @@ public class DonesReviewDialogFragment extends DialogFragment {
     private void initUi() {
         String causeId = getArguments().getString(ARG_CAUSE_ID);
         mCause = CauseLab.get(getActivity()).getCause(causeId);
-       // DoneAdapter adapter = new DoneAdapter(mCause.getDones());
+        DoneAdapter adapter = new DoneAdapter(mCause.getmDones());
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-      //  mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(adapter);
     }
 
     public class DonesHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.review_item_title)
         TextView mTitle;
-        @BindView(R.id.review_item_description)
-        TextView mDescription;
-        @BindView(R.id.review_item_date)
-        TextView mDate;
 
         CausesDone mDone;
 
@@ -81,8 +76,6 @@ public class DonesReviewDialogFragment extends DialogFragment {
             mDone = done;
 
             mTitle.setText(mDone.getmTitle());
-            mDescription.setText(mDone.getmDescription());
-            mDate.setText(mDone.getmDoneDate());
         }
     }
 
@@ -95,6 +88,7 @@ public class DonesReviewDialogFragment extends DialogFragment {
                 mDones = dones;
             }else{
                 mDones = new ArrayList<>();
+                mDones.add(new CausesDone(0, getString(R.string.no_dones_yet), "asf", "asf"));
             }
         }
 

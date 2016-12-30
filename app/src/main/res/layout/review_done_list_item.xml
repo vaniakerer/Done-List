@@ -5,38 +5,13 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <RelativeLayout
+    <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+        android:id="@+id/review_item_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/review_item_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="asfasfasf"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="20sp"/>
-
-        <TextView
-            android:id="@+id/review_item_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="20 June 2016"
-            android:textSize="12sp"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/colorSecondaryText"/>
-
-
-    </RelativeLayout>
-
-
-    <TextView
-        android:id="@+id/review_item_description"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="asfasfasfaasfasfasfasfasfasfafasasfasfaskjasdasf"
-        android:textSize="16sp"
-        android:textColor="@color/colorSecondaryText"/>
-
-
+        android:text="Title"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="18sp"
+        android:gravity="center"/>
+    
 </LinearLayout>

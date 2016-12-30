@@ -154,7 +154,8 @@ public class CausesFragment extends Fragment {
 
         mDatabase
                 .child(FirebaseDatabaseReferences.USERS)
-                .child(mUser.getUid()).child(FirebaseDatabaseReferences.CAUSES)
+                .child(mUser.getUid())
+                .child(FirebaseDatabaseReferences.CAUSES)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
