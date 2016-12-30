@@ -16,4 +16,6 @@
     <color name="card_view_secondary_text_color">#bbbbbd</color>
     <color name="card_view_watch_color">#1d1d25</color>
     <color name="color_dones_title">#1d1d26</color>
+    <color name="rv_item_ripple_color">#e7e7e7</color>
+    <color name="transperent">#00e7e7e7</color>
 </resources>

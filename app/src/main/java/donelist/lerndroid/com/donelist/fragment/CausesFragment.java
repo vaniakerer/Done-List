@@ -11,7 +11,6 @@ import android.support.v4.app.ShareCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -75,6 +75,21 @@ public class CausesFragment extends Fragment {
         return new CausesFragment();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        if (mUser != null) {
+            Toast.makeText(getActivity(), "Hello, " + mUser.getDisplayName(), Toast.LENGTH_SHORT)
+            .show();
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -95,22 +110,9 @@ public class CausesFragment extends Fragment {
 
         updateUi();
         init();
-        Log.d(TAG, mUser.getUid());
 
         return v;
     }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-
-        setHasOptionsMenu(true);
-
-        mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
-    }
-
 
     @OnClick(R.id.causes_fragment_new_cause_fab)
     public void onFabClick() {
@@ -141,6 +143,12 @@ public class CausesFragment extends Fragment {
 
     //ініціалізація бд
     private void init() {
+
+        if (mUser == null){
+            startActivity(LoginActivity.getIntent(getActivity()));
+            getActivity().finish();
+            return;
+        }
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
