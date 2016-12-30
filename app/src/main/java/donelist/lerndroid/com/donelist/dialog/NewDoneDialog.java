@@ -169,9 +169,10 @@ public class NewDoneDialog extends DialogFragment {
                 .child(FirebaseDatabaseReferences.CAUSES)
                 .child(mCauseId)
                 .child(FirebaseDatabaseReferences.DONES);
+        String key = database.push().getKey();
         database
-                .push()
-                .setValue(new CausesDone(title, date, status))
+                .child(key)
+                .setValue(new CausesDone(key, title, date, status))
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

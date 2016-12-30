@@ -88,7 +88,7 @@ public class DonesReviewDialogFragment extends DialogFragment {
                 mDones = dones;
             }else{
                 mDones = new ArrayList<>();
-                mDones.add(new CausesDone(0, getString(R.string.no_dones_yet), "asf", "asf"));
+                mDones.add(new CausesDone("1", getString(R.string.no_dones_yet), "asf", 1));
             }
         }
 

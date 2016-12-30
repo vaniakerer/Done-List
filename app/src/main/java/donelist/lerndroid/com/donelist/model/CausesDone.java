@@ -5,34 +5,35 @@ package donelist.lerndroid.com.donelist.model;
  */
 
 public class CausesDone {
-    private int mId;
+    private String mId;
     private String mTitle;
     private String mDescription;
     private String mDoneDate;
     private int status;
 
-    public CausesDone(int mId, String mTitle, String mDescription, String mDoneDate) {
+    public CausesDone(String mId, String mTitle, String mDescription, String mDoneDate, int status) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mDescription = mDescription;
         this.mDoneDate = mDoneDate;
-        this.status = 0;
+        this.status = status;
     }
 
-    public CausesDone(String mTitle, String mDoneDate, int status) {
+    public CausesDone(String id, String mTitle, String mDoneDate, int status) {
         this.mDoneDate = mDoneDate;
         this.status = status;
         this.mTitle = mTitle;
+        this.mId = id;
     }
 
     public CausesDone() {
     }
 
-    public int getmId() {
+    public String getmId() {
         return mId;
     }
 
-    public void setmId(int mId) {
+    public void setmId(String mId) {
         this.mId = mId;
     }
 

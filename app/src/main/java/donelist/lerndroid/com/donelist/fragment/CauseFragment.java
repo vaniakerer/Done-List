@@ -1,11 +1,11 @@
 package donelist.lerndroid.com.donelist.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,6 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import donelist.lerndroid.com.donelist.CauseLab;
 import donelist.lerndroid.com.donelist.FirebaseDatabaseReferences;
 import donelist.lerndroid.com.donelist.R;
@@ -87,22 +88,23 @@ public class CauseFragment extends Fragment {
         mCause = CauseLab.get(getActivity()).getCause(mCauseKey);
 
         //init firebase database
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        mDatabase
+        mDatabase = FirebaseDatabase.getInstance()
+                .getReference()
                 .child(FirebaseDatabaseReferences.USERS)
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child(FirebaseDatabaseReferences.CAUSES)
                 .child(mCauseKey)
-                .child(FirebaseDatabaseReferences.DONES)
+                .child(FirebaseDatabaseReferences.DONES);
+
+        mDatabase
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         List<CausesDone> dones = new ArrayList<>();
-                        for (DataSnapshot item : dataSnapshot.getChildren()){
+                        for (DataSnapshot item : dataSnapshot.getChildren()) {
                             dones.add(item.getValue(CausesDone.class));
                         }
-                        if (mAdapter != null){
+                        if (mAdapter != null) {
                             mAdapter.setDones(dones);
                         }
                     }
@@ -168,31 +170,6 @@ public class CauseFragment extends Fragment {
         dialog.show(getActivity().getSupportFragmentManager(), "asfasf");
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if ((resultCode != Activity.RESULT_OK) || (data == null)) {
-            return;
-        }
-
-        switch (requestCode) {
-            case REQUEST_NEW_DONE:
-/*
-                CausesDone done = new CausesDone();
-                done.setmTitle(data.getExtras().get(EXTRA_DONE_TITLE).toString());
-                done.setmDoneDate(data.getExtras().get(EXTRA_DONE_DATE).toString());
-                done.setmDescription("default description");
-                mAdapter.addDone(done);
-
-                mNoDones.setVisibility(View.GONE);
-                mRecyclerView.setVisibility(View.VISIBLE);*/
-
-                //insert this done into firebase database
-                //    mDatabase.child("causes").child("2").child("mDones").child(String.valueOf(mCause.getDones().size())).setValue(done);
-
-                break;
-        }
-    }
-
     public class CauseDonesViewHolder extends RecyclerView.ViewHolder {
 
         private CausesDone mCausesDone;
@@ -215,6 +192,35 @@ public class CauseFragment extends Fragment {
             mDate.setText(mCausesDone.getmDoneDate());
             Log.d(TAG, causesDone.toString());
         }
+
+        @OnLongClick(R.id.list_item_causes_done)
+        public boolean onDoneItemLongClick() {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.delete_cause)
+                    .setMessage(R.string.are_you_sure_cause)
+                    .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            deleteDone(mCausesDone.getmId());
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+            return true;
+        }
+    }
+
+    private void deleteDone(String key){
+        mDatabase
+                .child(key)
+                .removeValue();
+
     }
 
     public class CauseDoneAdapter extends RecyclerView.Adapter<CauseDonesViewHolder> {
@@ -252,7 +258,7 @@ public class CauseFragment extends Fragment {
             notifyItemInserted(mCausesDones.size() - 1);
         }
 
-        public void setDones(List<CausesDone> dones){
+        public void setDones(List<CausesDone> dones) {
             mCausesDones = dones;
             notifyDataSetChanged();
         }
