@@ -15,8 +15,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import donelist.lerndroid.com.donelist.CauseLab;
+import donelist.lerndroid.com.donelist.FirebaseDatabaseReferences;
 import donelist.lerndroid.com.donelist.R;
 import donelist.lerndroid.com.donelist.dialog.NewDoneDialog;
 import donelist.lerndroid.com.donelist.model.Cause;
@@ -74,16 +79,6 @@ public class CauseFragment extends Fragment {
         return fragment;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_cause, container, false);
-        ButterKnife.bind(this, v);
-        initUi();
-
-        return v;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +88,40 @@ public class CauseFragment extends Fragment {
 
         //init firebase database
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase
+                .child(FirebaseDatabaseReferences.USERS)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(FirebaseDatabaseReferences.CAUSES)
+                .child(mCauseKey)
+                .child(FirebaseDatabaseReferences.DONES)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        List<CausesDone> dones = new ArrayList<>();
+                        for (DataSnapshot item : dataSnapshot.getChildren()){
+                            dones.add(item.getValue(CausesDone.class));
+                        }
+                        if (mAdapter != null){
+                            mAdapter.setDones(dones);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_cause, container, false);
+        ButterKnife.bind(this, v);
+        initUi();
+
+        return v;
     }
 
     private void initUi() {
@@ -113,7 +142,6 @@ public class CauseFragment extends Fragment {
             }
         });
 
-        List<CausesDone> dones = mCause.getmDones();
         mAdapter = new CauseDoneAdapter(mCause.getmDones());
         mRecyclerView.setAdapter(mAdapter);
 
@@ -148,7 +176,7 @@ public class CauseFragment extends Fragment {
 
         switch (requestCode) {
             case REQUEST_NEW_DONE:
-
+/*
                 CausesDone done = new CausesDone();
                 done.setmTitle(data.getExtras().get(EXTRA_DONE_TITLE).toString());
                 done.setmDoneDate(data.getExtras().get(EXTRA_DONE_DATE).toString());
@@ -156,7 +184,7 @@ public class CauseFragment extends Fragment {
                 mAdapter.addDone(done);
 
                 mNoDones.setVisibility(View.GONE);
-                mRecyclerView.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.VISIBLE);*/
 
                 //insert this done into firebase database
                 //    mDatabase.child("causes").child("2").child("mDones").child(String.valueOf(mCause.getDones().size())).setValue(done);
@@ -222,6 +250,11 @@ public class CauseFragment extends Fragment {
         public void addDone(CausesDone done) {
             mCausesDones.add(done);
             notifyItemInserted(mCausesDones.size() - 1);
+        }
+
+        public void setDones(List<CausesDone> dones){
+            mCausesDones = dones;
+            notifyDataSetChanged();
         }
     }
 }

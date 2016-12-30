@@ -68,6 +68,8 @@ public class CausesDone {
         this.status = status;
     }
 
+
+
     @Override
     public String toString() {
         return this.getmTitle() + " " + this.getmDescription() + " " + this.getmDoneDate() + " " +  this.getmId();
