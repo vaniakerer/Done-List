@@ -1,8 +1,10 @@
 package donelist.lerndroid.com.donelist.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -78,14 +80,17 @@ public class NewCauseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         if (mUser == null) {
             Toast.makeText(getActivity(), getString(R.string.you_are_not_authorized), Toast.LENGTH_SHORT)
                     .show();
             onDestroy();
         }
+
+        mDatabase = FirebaseDatabase.getInstance().getReference()
+                .child(FirebaseDatabaseReferences.USERS)
+                .child(mUser.getUid())
+                .child(FirebaseDatabaseReferences.CAUSES);
     }
 
     @Nullable
@@ -115,23 +120,20 @@ public class NewCauseFragment extends Fragment {
         if (mNewCauseTitleEd.getText().toString().length() == 0) {
             Toast.makeText(getActivity(), R.string.must_be_filled, Toast.LENGTH_SHORT)
                     .show();
+        } else if (!isNetworkAvailable()) {
+            Toast.makeText(getActivity(), getString(R.string.no_internet_connection), Toast.LENGTH_SHORT)
+                    .show();
         } else {
 
             mProgress.setVisibility(View.VISIBLE);
 
             final String key = mDatabase
-                    .child(FirebaseDatabaseReferences.USERS)
-                    .child(mUser.getUid())
-                    .child(FirebaseDatabaseReferences.CAUSES)
                     .push()
                     .getKey();
 
             final Cause cause = bindCause(key);
 
             mDatabase
-                    .child(FirebaseDatabaseReferences.USERS)
-                    .child(mUser.getUid())
-                    .child(FirebaseDatabaseReferences.CAUSES)
                     .child(key)
                     .setValue(cause)
                     .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
@@ -160,6 +162,8 @@ public class NewCauseFragment extends Fragment {
                     });
         }
     }
+
+
 
     private Cause bindCause(String key) {
         Cause cause = new Cause();
@@ -213,5 +217,13 @@ public class NewCauseFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         outState.putParcelable(PHOTO_URI, mPhotoUri);
         super.onSaveInstanceState(outState);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        boolean isNetworkAvailable = cm.getActiveNetworkInfo() != null;
+        boolean isNetworkConnected = isNetworkAvailable && cm.getActiveNetworkInfo().isConnected();
+
+        return isNetworkConnected;
     }
 }
