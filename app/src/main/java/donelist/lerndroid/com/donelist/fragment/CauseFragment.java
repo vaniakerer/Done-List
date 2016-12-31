@@ -71,8 +71,8 @@ public class CauseFragment extends Fragment {
     TextView mNoDones;
     @BindView(R.id.cause_fragment_new_done_fab)
     FloatingActionButton mAddDoneFab;
-    @BindView(R.id.cause_fragment_cause_image)
-    ImageView mImage;
+    @BindView(R.id.cause_fragment_causes_image_letter)
+    TextView mCauseLatter;
     @BindView(R.id.cause_fragment_recycler_view)
     RecyclerView mRecyclerView;
 
@@ -139,6 +139,7 @@ public class CauseFragment extends Fragment {
             onDestroy();
             return;
         }
+        mCauseLatter.setText(String.valueOf(mCause.getmTitle().charAt(0)));
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
