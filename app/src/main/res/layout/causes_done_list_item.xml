@@ -16,6 +16,7 @@
         android:layout_toLeftOf="@+id/cause_done_list_item_date_tv"
         android:layout_toRightOf="@+id/cause_done_list_item_status_img"
         android:text="Title"
+        android:lines="1"
         android:textColor="@color/card_view_title_text_color"
         android:textSize="@dimen/done_title_text_size" />
 

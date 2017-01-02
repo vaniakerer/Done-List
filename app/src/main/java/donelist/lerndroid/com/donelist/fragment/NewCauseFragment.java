@@ -1,13 +1,9 @@
 package donelist.lerndroid.com.donelist.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -20,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,7 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pnikosis.materialishprogress.ProgressWheel;
 
-import java.io.IOException;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -51,13 +45,9 @@ public class NewCauseFragment extends Fragment {
 
     private static final String TAG = "NewCauseFragment";
 
-    private static final int REQUEST_MAKE_PHOTO = 0;
-
     private static final String EXTRA_CAUSE_ID = "donelist.lerndriod.com.donelist.cause_id";
 
     private static final String PHOTO_URI = "photoUri";
-
-    private Uri mPhotoUri;
 
     private DatabaseReference mDatabase;
     private FirebaseUser mUser;
@@ -66,8 +56,6 @@ public class NewCauseFragment extends Fragment {
     EditText mNewCauseTitleEd;
     @BindView(R.id.new_cause_description_ed)
     EditText mNewCauseDescripptionEd;
-    @BindView(R.id.new_cause_photo_img)
-    ImageView mNewCausePhotoImg;
     @BindView(R.id.new_cause_edit_image_fab)
     FloatingActionButton mSubmitCauseFab;
     @BindView(R.id.fragment_new_cause_progress)
@@ -99,19 +87,6 @@ public class NewCauseFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_new_cause, container, false);
         ButterKnife.bind(this, v);
 
-        if (savedInstanceState != null) {
-            mPhotoUri = savedInstanceState.getParcelable(PHOTO_URI);
-            Bitmap photo = null;
-
-            if (mPhotoUri != null) {
-                try {
-                    photo = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), mPhotoUri);
-                    mNewCausePhotoImg.setImageBitmap(photo);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
         return v;
     }
 
@@ -143,8 +118,6 @@ public class NewCauseFragment extends Fragment {
                                 CauseLab causeLab = CauseLab.get(getActivity());
                                 causeLab.addCause(cause);
 
-                                getActivity().finish();
-
                                 Intent intent = new Intent(getActivity(), CauseActivity.class);
                                 intent.putExtra(EXTRA_CAUSE_ID, key);
 
@@ -153,6 +126,7 @@ public class NewCauseFragment extends Fragment {
                                         new Pair<View, String>(mSubmitCauseFab, getString(R.string.transition_name_fab))
                                 );
                                 ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
+                                getActivity().finish();
 
                             } else {
                                 Toast.makeText(getActivity(), R.string.something_goes_wrong, Toast.LENGTH_SHORT)
@@ -162,8 +136,6 @@ public class NewCauseFragment extends Fragment {
                     });
         }
     }
-
-
 
     private Cause bindCause(String key) {
         Cause cause = new Cause();
@@ -176,47 +148,7 @@ public class NewCauseFragment extends Fragment {
         cause.setPhotoPath(null);//TODO make photo
         cause.setDate(DateFormat.format(dateFormat, c.getTime()).toString());
 
-        if (mPhotoUri != null) {
-            cause.setPhotoPath(mPhotoUri.getPath());
-        }
         return cause;
-    }
-
-    @OnClick(R.id.new_cause_photo_img)
-    public void makePhotoListener() {
-        final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        boolean canTakePhoto = captureImage.resolveActivity(getActivity().getPackageManager()) != null;
-
-        if (canTakePhoto) {
-            startActivityForResult(captureImage, REQUEST_MAKE_PHOTO);
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-
-        switch (requestCode) {
-            case REQUEST_MAKE_PHOTO:
-                mPhotoUri = data.getData();
-                try {
-                    Bitmap photo = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), mPhotoUri);
-
-                    mNewCausePhotoImg.setImageBitmap(photo);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelable(PHOTO_URI, mPhotoUri);
-        super.onSaveInstanceState(outState);
     }
 
     private boolean isNetworkAvailable() {

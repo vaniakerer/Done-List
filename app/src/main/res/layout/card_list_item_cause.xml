@@ -89,7 +89,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/card_item_cause_preview_tv"
                     android:text="@string/share"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/secondary_text_size"
                     android:transitionName="@string/transition_name_date"
                     android:background="@drawable/recycler_view_item_ripple_efect"

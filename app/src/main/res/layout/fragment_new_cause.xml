@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:layout_marginLeft="7dp"
+    android:layout_marginStart="7dp">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/new_cause_edit_image_fab"
@@ -15,16 +17,6 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_fab_check"
         android:transitionName="@string/transition_name_fab" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="7dp"
-        android:layout_marginStart="7dp"
-        android:orientation="vertical">
 
         <android.support.v7.widget.CardView
             style="@style/CardViewStyle"
@@ -83,21 +75,6 @@
 
         </android.support.v7.widget.CardView>
 
-
-        <android.support.v7.widget.CardView
-            style="@style/CardViewStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <ImageView
-                android:id="@+id/new_cause_photo_img"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/ic_cause_photo" />
-
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
 
     <com.pnikosis.materialishprogress.ProgressWheel
         android:id="@+id/fragment_new_cause_progress"
