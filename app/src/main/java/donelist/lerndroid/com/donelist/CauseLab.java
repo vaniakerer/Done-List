@@ -44,6 +44,10 @@ public class CauseLab {
         //mCauses.add(cause);
     }
 
+    public void clear(){
+        mCauses.clear();
+    }
+
     public Cause getCause(String key) {
         return mCauses.get(key);
     }

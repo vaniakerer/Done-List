@@ -90,7 +90,7 @@ public class CausesFragment extends Fragment {
         mUser = mAuth.getCurrentUser();
         if (mUser != null) {
             Toast.makeText(getActivity(), "Hello, " + mUser.getDisplayName(), Toast.LENGTH_SHORT)
-            .show();
+                    .show();
         }
     }
 
@@ -138,6 +138,7 @@ public class CausesFragment extends Fragment {
             case R.id.caused_menu_logout:
                 mAuth.signOut();
                 startActivity(LoginActivity.getIntent(getActivity()));
+                CauseLab.get(getActivity()).clear();
                 getActivity().finish();
             default:
                 return super.onOptionsItemSelected(item);
@@ -148,7 +149,7 @@ public class CausesFragment extends Fragment {
     //ініціалізація бд
     private void init() {
 
-        if (mUser == null){
+        if (mUser == null) {
             startActivity(LoginActivity.getIntent(getActivity()));
             getActivity().finish();
             return;
@@ -236,7 +237,7 @@ public class CausesFragment extends Fragment {
         }
 
         @OnLongClick(R.id.card_item_cause_cardview)
-        public boolean onCardLongClick(){
+        public boolean onCardLongClick() {
             new AlertDialog.Builder(getActivity())
                     .setTitle(R.string.delete_cause)
                     .setMessage(R.string.are_you_sure_cause)
@@ -279,7 +280,7 @@ public class CausesFragment extends Fragment {
 
             String result = "Title: " + mCause.getTitle() + ". \nDescription: " + mCause.getDescription() + ".\n Date: " + mCause.getDate() + "\n" + "My dones";
 
-            for (CausesDone done : dones){
+            for (CausesDone done : dones) {
                 result += "- " + done.getmTitle() + "; \n";
             }
 
@@ -287,7 +288,7 @@ public class CausesFragment extends Fragment {
         }
     }
 
-    private void deleteCause(String key){
+    private void deleteCause(String key) {
         mDatabase.child(FirebaseDatabaseReferences.USERS)
                 .child(mUser.getUid())
                 .child(FirebaseDatabaseReferences.CAUSES)

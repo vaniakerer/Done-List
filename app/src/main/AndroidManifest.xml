@@ -31,8 +31,7 @@
             android:name=".NewCauseActivity"
             android:parentActivityName=".CausesActivity" />
         <activity
-            android:name=".CauseActivity"
-            android:parentActivityName=".CausesActivity" />
+            android:name=".CauseActivity"/>
         <activity
             android:name=".LoginActivity"
             android:theme="@style/LoginActivityThame" />

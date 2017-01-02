@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -139,6 +140,9 @@ public class CauseFragment extends Fragment {
             onDestroy();
             return;
         }
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mCauseLatter.setText(String.valueOf(mCause.getmTitle().charAt(0)));
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -227,6 +231,7 @@ public class CauseFragment extends Fragment {
 
     /**
      * removing causes done by key
+     *
      * @param key - dones identity key in database
      */
     private void deleteDone(String key) {
@@ -238,7 +243,7 @@ public class CauseFragment extends Fragment {
     /**
      * removing current cause
      */
-    private void deleteCause(){
+    private void deleteCause() {
         mCausesReference.removeValue();
         getActivity().finish();
     }
@@ -251,7 +256,7 @@ public class CauseFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.detail_cause_menu_delete_cause:
                 new AlertDialog.Builder(getActivity())
                         .setTitle(R.string.delete_cause)
@@ -270,6 +275,9 @@ public class CauseFragment extends Fragment {
                             }
                         })
                         .show();
+                return true;
+            case android.R.id.home:
+                getActivity().onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -312,10 +320,10 @@ public class CauseFragment extends Fragment {
         }
 
         public void setDones(List<CausesDone> dones) {
-            if (!dones.isEmpty()){
+            if (!dones.isEmpty()) {
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mNoDones.setVisibility(View.GONE);
-            }else {
+            } else {
                 mRecyclerView.setVisibility(View.GONE);
                 mNoDones.setVisibility(View.VISIBLE);
             }

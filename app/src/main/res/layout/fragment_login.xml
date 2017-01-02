@@ -6,6 +6,14 @@
     android:background="@color/background"
     android:padding="@dimen/window_padding">
 
+    <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/sign_in_small"
+        android:textColor="@color/edit_text_color_dark"
+        android:textSize="22sp" />
+
     <ImageView
         android:id="@+id/fragment_login_logo_img"
         android:layout_width="120dp"
@@ -14,7 +22,7 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="50dp"
         android:src="@drawable/times_logo"
-        android:transitionName="@string/transition_name_image"/>
+        android:transitionName="@string/transition_name_image" />
 
     <com.pnikosis.materialishprogress.ProgressWheel
         android:id="@+id/fragment_login_progress"
@@ -106,19 +114,19 @@
             android:id="@+id/fragment_login_login_with_social_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/recycler_view_item_ripple_efect"
             android:text="@string/log_in_with_social_tv_text"
             android:textColor="@color/edit_text_hint_color"
-            android:textSize="@dimen/sign_in_button_size"
-            android:background="@drawable/recycler_view_item_ripple_efect"/>
+            android:textSize="@dimen/sign_in_button_size" />
 
         <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
             android:id="@+id/fragment_login_sign_up_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/recycler_view_item_ripple_efect"
             android:text="@string/sign_up_tv_text"
             android:textColor="@color/edit_text_color_dark"
-            android:textSize="@dimen/sign_in_button_size"
-            android:background="@drawable/recycler_view_item_ripple_efect"/>
+            android:textSize="@dimen/sign_in_button_size" />
 
     </LinearLayout>
 

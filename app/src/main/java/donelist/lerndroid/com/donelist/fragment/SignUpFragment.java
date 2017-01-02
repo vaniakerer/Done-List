@@ -66,7 +66,6 @@ public class SignUpFragment extends Fragment {
         ButterKnife.bind(this, v);
 
 
-
         initListeners();
 
         return v;

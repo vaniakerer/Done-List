@@ -51,4 +51,5 @@
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
     <string name="no_internet_connection">No internet connection!</string>
+    <string name="sign_in_small">Sign In</string>
 </resources>

@@ -1,58 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/fragment_sign_up_scroll_view"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_sign_up_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:padding="@dimen/window_padding"
     android:fillViewport="true"
-    android:scrollbars = "vertical"
-    >
+    android:padding="@dimen/window_padding"
+    android:scrollbars="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/login_linear">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/fragment_sign_up_exit_img"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_exit" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/sign_up"
-                android:textColor="@color/edit_text_color_dark"
-                android:textSize="22sp" />
+                <ImageView
+                    android:id="@+id/fragment_sign_up_exit_img"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_exit" />
 
-            <ImageView
-                android:id="@+id/fragment_sign_in_logo_img"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/times_logo"
-                android:transitionName="@string/transition_name_image" />
+                <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/sign_up"
+                    android:textColor="@color/edit_text_color_dark"
+                    android:textSize="22sp" />
 
-            <com.pnikosis.materialishprogress.ProgressWheel
-                android:id="@+id/fragment_sign_in_progress"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_centerInParent="true"
-                android:visibility="gone"
-                app:matProg_barColor="@color/colorAccent"
-                app:matProg_progressIndeterminate="true"
-                app:matProg_rimColor="@color/white" />
+                <com.pnikosis.materialishprogress.ProgressWheel
+                    android:id="@+id/fragment_sign_in_progress"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"
+                    app:matProg_barColor="@color/colorAccent"
+                    app:matProg_progressIndeterminate="true"
+                    app:matProg_rimColor="@color/white" />
 
-        </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/login_linear"
@@ -62,9 +56,20 @@
             android:gravity="bottom"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/fragment_sign_in_logo_img"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:src="@drawable/times_logo"
+                android:transitionName="@string/transition_name_image" />
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+
                 android:textColorHint="@color/edit_text_color_dark">
 
                 <donelist.lerndroid.com.donelist.custom_views.AvenirBookEditText
@@ -132,8 +137,7 @@
             android:layout_marginTop="@dimen/have_no_acc_top_margin"
             android:gravity="center"
             android:orientation="horizontal"
-            android:scrollbars = "vertical"
-            >
+            android:scrollbars="vertical">
 
             <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
                 android:id="@+id/fragment_sign_in_have_an_acc"
@@ -155,4 +159,4 @@
         </LinearLayout>
     </RelativeLayout>
 
-</RelativeLayout>
+</FrameLayout>
