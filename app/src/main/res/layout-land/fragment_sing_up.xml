@@ -8,16 +8,17 @@
     android:background="@color/background"
     android:padding="@dimen/window_padding"
     android:fillViewport="true"
-    android:scrollbars = "vertical"
-    >
+    android:scrollbars = "vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:layout_above="@+id/login_linear">
 
             <ImageView
@@ -52,11 +53,41 @@
                 app:matProg_progressIndeterminate="true"
                 app:matProg_rimColor="@color/white" />
 
+            <LinearLayout
+                android:id="@+id/login_type_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/have_no_acc_top_margin"
+                android:gravity="center"
+                android:orientation="vertical"
+                >
+
+                <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+                    android:id="@+id/fragment_sign_in_have_an_acc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/already_have_an_account_tv_text"
+                    android:textColor="@color/edit_text_hint_color"
+                    android:textSize="@dimen/sign_in_button_size" />
+
+                <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+                    android:id="@+id/fragment_sign_in_sign_in_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/recycler_view_item_ripple_efect"
+                    android:text="@string/sign_in"
+                    android:textColor="@color/edit_text_color_dark"
+                    android:textSize="@dimen/sign_in_button_size" />
+
+            </LinearLayout>
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/login_linear"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+
             android:layout_height="wrap_content"
             android:layout_above="@+id/login_type_container"
             android:gravity="bottom"
@@ -124,35 +155,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/login_type_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/have_no_acc_top_margin"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:scrollbars = "vertical"
-            >
 
-            <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
-                android:id="@+id/fragment_sign_in_have_an_acc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/already_have_an_account_tv_text"
-                android:textColor="@color/edit_text_hint_color"
-                android:textSize="@dimen/sign_in_button_size" />
-
-            <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
-                android:id="@+id/fragment_sign_in_sign_in_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/recycler_view_item_ripple_efect"
-                android:text="@string/sign_in"
-                android:textColor="@color/edit_text_color_dark"
-                android:textSize="@dimen/sign_in_button_size" />
-
-        </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

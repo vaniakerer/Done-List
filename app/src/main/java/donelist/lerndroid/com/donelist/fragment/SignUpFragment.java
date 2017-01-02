@@ -53,6 +53,7 @@ public class SignUpFragment extends Fragment {
     @BindView(R.id.fragment_sign_in_logo_img)
     ImageView mLogoImg;
 
+
     public static Fragment newInstance() {
         return new SignUpFragment();
     }
@@ -63,6 +64,8 @@ public class SignUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_sing_up, container, false);
         ButterKnife.bind(this, v);
+
+
 
         initListeners();
 
