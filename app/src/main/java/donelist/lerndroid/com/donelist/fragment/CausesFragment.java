@@ -278,7 +278,7 @@ public class CausesFragment extends Fragment {
 
         private String getCauseForShare(List<CausesDone> dones) {
 
-            String result = "Title: " + mCause.getTitle() + ". \nDescription: " + mCause.getDescription() + ".\n Date: " + mCause.getDate() + "\n" + "My dones";
+            String result = "Title: " + mCause.getTitle() + ". \nDescription: " + mCause.getDescription() + ".\n Date: " + mCause.getDate() + "\n" + "My dones: \n";
 
             for (CausesDone done : dones) {
                 result += "- " + done.getmTitle() + "; \n";
