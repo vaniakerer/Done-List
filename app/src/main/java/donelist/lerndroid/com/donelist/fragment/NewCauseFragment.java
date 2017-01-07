@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -101,6 +102,8 @@ public class NewCauseFragment extends Fragment {
         } else {
 
             mProgress.setVisibility(View.VISIBLE);
+            mSubmitCauseFab.hide();
+            mSubmitCauseFab.setEnabled(false);
 
             final String key = mDatabase
                     .push()
@@ -132,6 +135,16 @@ public class NewCauseFragment extends Fragment {
                                 Toast.makeText(getActivity(), R.string.something_goes_wrong, Toast.LENGTH_SHORT)
                                         .show();
                             }
+                        }
+                    })
+                    .addOnFailureListener(getActivity(), new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            mSubmitCauseFab.show();
+                            mSubmitCauseFab.setEnabled(true);
+                            mProgress.setVisibility(View.GONE);
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT)
+                                    .show();
                         }
                     });
         }
