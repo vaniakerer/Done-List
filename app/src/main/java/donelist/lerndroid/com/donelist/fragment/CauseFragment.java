@@ -227,6 +227,14 @@ public class CauseFragment extends Fragment {
                     .show();
             return true;
         }
+
+        @OnClick(R.id.list_item_causes_done)
+        public void onClik() {
+            new AlertDialog.Builder(getActivity())
+                    .setMessage("\n" + mCausesDone.getmTitle())
+                    .create()
+                    .show();
+        }
     }
 
     /**
