@@ -1,7 +1,9 @@
 package donelist.lerndroid.com.donelist.fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -56,8 +58,6 @@ import donelist.lerndroid.com.donelist.model.CausesDone;
  */
 
 public class CausesFragment extends Fragment {
-    private static final String TAG = "CausesFragment";
-    private static final String ARG_CAUSE_ID = "cause_id";
     private static final String DIALOG_REVIEW = "DialogReview";
     private static final String EXTRA_CAUSE_ID = "donelist.lerndriod.com.donelist.cause_id";
 
@@ -73,6 +73,8 @@ public class CausesFragment extends Fragment {
     FloatingActionButton mCreateCauseFab;
     @BindView(R.id.fragment_causes_progress)
     ProgressWheel mProgress;
+    @BindView(R.id.fragment_causes_info_tv)
+    TextView mInfoTv;
 
 
     public static CausesFragment newInstance() {
@@ -155,6 +157,12 @@ public class CausesFragment extends Fragment {
             return;
         }
 
+        if (!isNetworkAvailable()){
+            mProgress.setVisibility(View.GONE);
+            mInfoTv.setVisibility(View.VISIBLE);
+            mInfoTv.setText(R.string.no_internet_retry);
+        }
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mDatabase
@@ -173,6 +181,14 @@ public class CausesFragment extends Fragment {
                             causes.put(causeKey, cause);
                         }
 
+                        if (causes.isEmpty()){
+                            mInfoTv.setVisibility(View.VISIBLE);
+                            mRecyclerView.setVisibility(View.GONE);
+                            mInfoTv.setText(R.string.no_records_yet);
+                        }else {
+                            mInfoTv.setVisibility(View.GONE);
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                        }
                         CauseLab.get(getActivity()).setCauses(causes);
                         updateUi();
                         mProgress.setVisibility(View.GONE);
@@ -344,5 +360,12 @@ public class CausesFragment extends Fragment {
         updateUi();
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        boolean isNetworkAvailable = cm.getActiveNetworkInfo() != null;
+        boolean isNetworkConnected = isNetworkAvailable && cm.getActiveNetworkInfo().isConnected();
+
+        return isNetworkConnected;
+    }
 
 }

@@ -30,5 +30,12 @@
         app:matProg_rimColor="@color/white"
         app:matProg_progressIndeterminate="true"/>
 
+    <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+        android:id="@+id/fragment_causes_info_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="@dimen/no_records_text_size"
+        android:visibility="gone"/>
 
 </android.support.design.widget.CoordinatorLayout>

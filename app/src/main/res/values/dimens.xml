@@ -17,4 +17,5 @@
     <dimen name="dialog_title_bottom_margin">20dp</dimen>
     <dimen name="dialog_titile_text_size">16dp</dimen>
     <dimen name="done_title_text_size">16dp</dimen>
+    <dimen name="no_records_text_size">24dp</dimen>
 </resources>

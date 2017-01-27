@@ -118,7 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/background"
-            android:visibility="visible" />
+             />
 
         <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
             android:id="@+id/cause_fragment_no_dones_tv"
@@ -127,6 +127,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:text="@string/no_dones_yet"
+            android:textSize="@dimen/no_records_text_size"
             android:visibility="gone" />
 
     </LinearLayout>
