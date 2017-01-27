@@ -22,6 +22,7 @@
             android:layout_height="wrap_content">
 
 
+
             <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
                 android:id="@+id/card_item_cause_title_tv"
                 android:layout_width="wrap_content"

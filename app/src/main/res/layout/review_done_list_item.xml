@@ -12,6 +12,6 @@
         android:text="Title"
         android:textColor="@color/colorPrimaryText"
         android:textSize="18sp"
-        android:gravity="center"/>
+        android:gravity="left"/>
     
 </LinearLayout>

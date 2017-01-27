@@ -51,40 +51,58 @@
 
                 </RelativeLayout>
 
-                <LinearLayout
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
-                        android:id="@+id/cause_fragment_cause_title_tv"
-                        android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/fragment_cause_edit_cause"
+                        android:layout_width="48dp"
                         android:layout_height="wrap_content"
-                        android:text="Title"
-                        android:textColor="@color/card_view_title_text_color"
-                        android:textSize="@dimen/card_view_title_text_size"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/recycler_view_item_ripple_efect"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_edit" />
 
-                        android:transitionName="@string/transition_name_title" />
-
-                    <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
-                        android:id="@+id/cause_fragment_cause_description_tv"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="afasfagasfasfkasjfajsfas;'ksas;kjaf;asfj;asjf;asjf;asjf;asfjas;lfjas;fjas;jfas;fjas;jfas;jfa;sjf;asjf;asjf;asj;fasjf;jas;fjlas;fjas;jfas;fjas;fjas;fjas;fja;sjfas;jfas;fja;sfjas;jfas;jfas;fjl"
-                        android:textColor="@color/colorSecondaryText"
-                        android:textSize="@dimen/secondary_text_size"
-                        android:transitionName="@string/transition_name_description" />
+                        android:orientation="vertical">
 
-                    <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
-                        android:id="@+id/cause_fragment_cause_date_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:text="20 Juli 2016"
-                        android:textColor="@color/colorSecondaryText"
-                        android:textSize="@dimen/secondary_text_size"
-                        android:transitionName="@string/transition_name_date" />
-                </LinearLayout>
+                        <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+                            android:id="@+id/cause_fragment_cause_title_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Title"
+                            android:textColor="@color/card_view_title_text_color"
+                            android:textSize="@dimen/card_view_title_text_size"
+
+                            android:transitionName="@string/transition_name_title" />
+
+                        <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+                            android:id="@+id/cause_fragment_cause_description_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="afasfagasfasfkasjfajsfas;'ksas;kjaf;asfj;asjf;asjf;asjf;asfjas;lfjas;fjas;jfas;fjas;jfas;jfa;sjf;asjf;asjf;asj;fasjf;jas;fjlas;fjas;jfas;fjas;fjas;fjas;fja;sjfas;jfas;fja;sfjas;jfas;jfas;fjl"
+                            android:textColor="@color/colorSecondaryText"
+                            android:textSize="@dimen/secondary_text_size"
+                            android:transitionName="@string/transition_name_description" />
+
+                        <donelist.lerndroid.com.donelist.custom_views.AvenirBookTextView
+                            android:id="@+id/cause_fragment_cause_date_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:text="20 Juli 2016"
+                            android:textColor="@color/colorSecondaryText"
+                            android:textSize="@dimen/secondary_text_size"
+                            android:transitionName="@string/transition_name_date" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+
             </LinearLayout>
 
             <View

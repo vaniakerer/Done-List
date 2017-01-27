@@ -233,7 +233,6 @@ public class CausesFragment extends Fragment {
             );
 
             ActivityCompat.startActivity(getActivity(), intent, options.toBundle());
-            /*startActivity(intent);*/
         }
 
         @OnLongClick(R.id.card_item_cause_cardview)

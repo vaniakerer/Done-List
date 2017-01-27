@@ -1,6 +1,8 @@
 package donelist.lerndroid.com.donelist.fragment;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -36,6 +38,7 @@ import butterknife.OnLongClick;
 import donelist.lerndroid.com.donelist.CauseLab;
 import donelist.lerndroid.com.donelist.FirebaseDatabaseReferences;
 import donelist.lerndroid.com.donelist.R;
+import donelist.lerndroid.com.donelist.dialog.EditCauseDialog;
 import donelist.lerndroid.com.donelist.dialog.NewDoneDialog;
 import donelist.lerndroid.com.donelist.model.Cause;
 import donelist.lerndroid.com.donelist.model.CausesDone;
@@ -49,10 +52,11 @@ public class CauseFragment extends Fragment {
 
     private static final String ARG_CAUSE_ID = "cause_id";
 
-    private static final String EXTRA_DONE_TITLE = "donelist.lerndriod.com.donelist.done_title";
-    private static final String EXTRA_DONE_DATE = "donelist.lerndriod.com.donelist.done_date";
-
     private static final int REQUEST_NEW_DONE = 1;
+    private static final int REQUEST_EDIT_CAUSE = 1101;
+
+    private static final String EXTRA_TITLE = "cause_title";
+    private static final String EXTRA_DESCRIPTION = "cause_description";
 
     private DatabaseReference mDonesReference;
     private DatabaseReference mCausesReference;
@@ -76,6 +80,8 @@ public class CauseFragment extends Fragment {
     TextView mCauseLatter;
     @BindView(R.id.cause_fragment_recycler_view)
     RecyclerView mRecyclerView;
+    @BindView(R.id.fragment_cause_edit_cause)
+    ImageView mEditCauseImage;
 
     public static CauseFragment newInstance(String causeId) {
         Bundle args = new Bundle();
@@ -88,11 +94,11 @@ public class CauseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
         String causeKey = getArguments().getString(ARG_CAUSE_ID);
         mCauseKey = causeKey;
         mCause = CauseLab.get(getActivity()).getCause(mCauseKey);
-
-        setHasOptionsMenu(true);
 
         //init firebase database
         mCausesReference = FirebaseDatabase.getInstance()
@@ -180,7 +186,16 @@ public class CauseFragment extends Fragment {
         NewDoneDialog dialog = NewDoneDialog.newInstance(mCauseKey);
         dialog.setTargetFragment(this, REQUEST_NEW_DONE);
 
-        dialog.show(getActivity().getSupportFragmentManager(), "asfasf");
+        dialog.show(getActivity().getSupportFragmentManager(), NewDoneDialog.TAG);
+    }
+
+    @OnClick(R.id.fragment_cause_edit_cause)
+    public void onEditCauseClick() {
+        Log.d("ASFASFAFsssssa", "ASccc");
+        EditCauseDialog dialog = EditCauseDialog.newInstance(mCauseKey, mCause.getmTitle(), mCause.getDescription());
+        dialog.setTargetFragment(this, REQUEST_EDIT_CAUSE);
+
+        dialog.show(getActivity().getSupportFragmentManager(), EditCauseDialog.TAG);
     }
 
     public class CauseDonesViewHolder extends RecyclerView.ViewHolder {
@@ -193,6 +208,7 @@ public class CauseFragment extends Fragment {
         TextView mDate;
         @BindView(R.id.cause_done_list_item_status_img)
         ImageView mStatusImage;
+
 
         public CauseDonesViewHolder(View itemView) {
             super(itemView);
@@ -338,6 +354,21 @@ public class CauseFragment extends Fragment {
 
             mCausesDones = dones;
             notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case REQUEST_EDIT_CAUSE:
+                if (resultCode == Activity.RESULT_OK){
+                    String title = data.getStringExtra(EXTRA_TITLE);
+                    String description = data.getStringExtra(EXTRA_DESCRIPTION);
+                    mTitle.setText(title);
+                    mDescription.setText(description);
+                }
+                break;
         }
     }
 }

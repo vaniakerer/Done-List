@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/dialog_padding"
+    android:paddingRight="@dimen/dialog_padding"
+    android:paddingTop="@dimen/dialog_padding">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <donelist.lerndroid.com.donelist.custom_views.AvenirBookEditText
+            android:id="@+id/dialog_edit_cause_title_ed"
+            style="@style/MyEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <donelist.lerndroid.com.donelist.custom_views.AvenirBookEditText
+            android:id="@+id/dialog_edit_cause_description_ed"
+            style="@style/MyEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/description" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <donelist.lerndroid.com.donelist.custom_views.AvenirBookButton
+        android:id="@+id/dialog_edit_cause_submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/white"
+        android:text="@string/submit"/>
+
+</LinearLayout>

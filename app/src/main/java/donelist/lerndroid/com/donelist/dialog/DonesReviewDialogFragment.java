@@ -2,7 +2,7 @@ package donelist.lerndroid.com.donelist.dialog;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +56,7 @@ public class DonesReviewDialogFragment extends DialogFragment {
         mCause = CauseLab.get(getActivity()).getCause(causeId);
         DoneAdapter adapter = new DoneAdapter(mCause.getmDones());
 
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(adapter);
     }
 

@@ -42,11 +42,9 @@ import donelist.lerndroid.com.donelist.model.CausesDone;
  */
 
 public class NewDoneDialog extends DialogFragment {
+    public static final String TAG = "NewDoneDialog";
 
     private static final String DIALOG_DATE = "DialogDate";
-
-    private static final String EXTRA_DONE_TITLE = "donelist.lerndriod.com.donelist.done_title";
-    private static final String EXTRA_DONE_DATE = "donelist.lerndriod.com.donelist.done_date";
 
     private static final int REQUEST_DATE = 0;
 
