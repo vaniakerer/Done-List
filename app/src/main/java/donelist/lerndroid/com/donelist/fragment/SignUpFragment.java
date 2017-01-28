@@ -50,8 +50,7 @@ public class SignUpFragment extends Fragment {
     Button mCreateUserBtn;
     @BindView(R.id.fragment_sign_in_progress)
     ProgressWheel mProgress;
-    @BindView(R.id.fragment_sign_in_logo_img)
-    ImageView mLogoImg;
+
 
 
     public static Fragment newInstance() {
@@ -166,7 +165,6 @@ public class SignUpFragment extends Fragment {
             @Override
             public void onAnimationStart(Animation animation) {
                 mProgress.setVisibility(View.GONE);
-                mLogoImg.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -180,7 +178,6 @@ public class SignUpFragment extends Fragment {
 
             }
         });
-        mLogoImg.startAnimation(showLogo);
     }
 
     private void hideLogo() {
@@ -193,7 +190,6 @@ public class SignUpFragment extends Fragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                mLogoImg.setVisibility(View.GONE);
                 mProgress.setVisibility(View.VISIBLE);
             }
 
@@ -201,7 +197,6 @@ public class SignUpFragment extends Fragment {
             public void onAnimationRepeat(Animation animation) {
             }
         });
-        mLogoImg.startAnimation(showLogo);
     }
 
 

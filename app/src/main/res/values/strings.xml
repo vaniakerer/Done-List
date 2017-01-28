@@ -19,7 +19,7 @@
     <string name="log_in_with_login_password_tv_text">LOG IN WITH USERNAME</string>
     <string name="fielt_cannot_be_empty">Заполните поле</string>
     <string name="sign_in">SIGN IN</string>
-    <string name="already_have_an_account_tv_text">ALREADY HAVE AN ACCOUNT?</string>
+    <string name="already_have_an_account_tv_text">HAVE AN ACCOUNT?</string>
     <string name="birthday">BIRTHDAY</string>
     <string name="email">EMAIL</string>
     <string name="full_name">FULL NAME</string>

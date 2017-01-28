@@ -40,7 +40,7 @@
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/times_logo"
+                android:src="@drawable/ic_logo"
                 android:transitionName="@string/transition_name_image" />
 
             <com.pnikosis.materialishprogress.ProgressWheel
@@ -112,7 +112,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:textColorHint="@color/edit_text_color_dark">
 
                 <donelist.lerndroid.com.donelist.custom_views.AvenirBookEditText
@@ -129,7 +129,7 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:textColorHint="@color/edit_text_color_dark">
 
                 <donelist.lerndroid.com.donelist.custom_views.AvenirBookEditText
@@ -147,7 +147,7 @@
                 android:id="@+id/fragment_sign_in_create_button"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:layout_marginTop="@dimen/sign_in_button_top_margin"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/button_ripple_efect"
                 android:text="@string/sign_in_button_text"
                 android:textColor="@color/white"
